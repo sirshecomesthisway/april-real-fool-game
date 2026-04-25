@@ -107,8 +107,8 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "sourceUrl": "https://corporate.walmart.com/news/2024/02/21/walmart-suppliers-lead-the-charge-help-deliver-project-gigaton-goal-more-than-six-years-early",
-      "alt": "Screenshot of Walmart Project Gigaton coverage."
+      "sourceUrl": "https://www.axios.com/2022/04/07/walmart-trucker-salary",
+      "alt": "Screenshot of Axios coverage of Walmart trucker salary."
     }
   },
   {
@@ -135,8 +135,8 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "sourceUrl": "https://corporate.walmart.com/news/2023/01/18/with-walmarts-new-associate-to-driver-program-the-wheel-is-within-reach",
-      "alt": "Screenshot of the Walmart associate-to-driver announcement."
+      "sourceUrl": "https://apnews.com/article/walmart-workers-wages-training-36cecdc9ccbe419753fb84e7161f99f4",
+      "alt": "Screenshot of AP News coverage of Walmart truck driver pay."
     }
   },
   {
@@ -163,8 +163,8 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "sourceUrl": "https://corporate.walmart.com/news/2019/10/15/inhome-delivery-service-officially-launches-in-kansas-city-pittsburgh-and-vero-beach",
-      "alt": "Screenshot of Walmart InHome Delivery launch coverage."
+      "sourceUrl": "https://www.theverge.com/2019/6/6/18655543/walmart-inhome-delivery-fridge-stocking-service",
+      "alt": "Screenshot of The Verge coverage of Walmart InHome Delivery."
     }
   },
   {
@@ -242,8 +242,8 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "sourceUrl": "https://corporate.walmart.com/news/2024/06/06/new-tech-better-outcomes-digital-shelf-labels-are-a-win-for-customers-and-associates",
-      "alt": "Screenshot of Walmart digital shelf labels coverage."
+      "sourceUrl": "https://www.retaildive.com/news/walmart-generative-ai-product-data-points/724782/",
+      "alt": "Screenshot of Retail Dive coverage of Walmart digital shelf labels."
     }
   },
   {
@@ -265,8 +265,8 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "sourceUrl": "https://corporate.walmart.com/news/2022/05/24/were-bringing-the-convenience-of-drone-delivery-to-4-million-u-s-households-in-partnership-with-droneup",
-      "alt": "Screenshot of Walmart drone delivery partnership coverage."
+      "sourceUrl": "https://www.cnbc.com/2022/05/24/walmart-expands-droneup-drone-delivery-to-reach-4-million-households.html",
+      "alt": "Screenshot of CNBC coverage of Walmart drone delivery."
     }
   },
   {

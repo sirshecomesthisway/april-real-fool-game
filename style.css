@@ -782,11 +782,6 @@ button:disabled {
   gap: 22px;
 }
 
-.controls-elevated {
-  position: relative;
-  z-index: 48;
-}
-
 .control-row {
   display: flex;
   gap: 12px;
