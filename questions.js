@@ -25,7 +25,12 @@ window.GAME_QUESTIONS = [
         "url": "https://www.youtube.com/watch?v=PtZyhjUyP6I",
         "type": "video"
       }
-    ]
+    ],
+    "media": {
+      "mode": "image",
+      "sourceUrl": "https://www.walmart.com/c/best-sellers/garden-outdoor-mulch",
+      "alt": "Screenshot of the Walmart mulch best-sellers page."
+    }
   },
   {
     "id": 2,
@@ -48,7 +53,12 @@ window.GAME_QUESTIONS = [
         "url": "https://patents.justia.com/patent/10521806",
         "type": "patent"
       }
-    ]
+    ],
+    "media": {
+      "mode": "image",
+      "sourceUrl": "https://patents.justia.com/patent/10521806",
+      "alt": "Screenshot of a patent page related to Walmart blockchain supply-chain control."
+    }
   },
   {
     "id": 3,
@@ -66,7 +76,12 @@ window.GAME_QUESTIONS = [
         "url": "https://www.cbsnews.com/news/walmart-patents-audio-surveillance-technology-to-record-customers-and-employees/",
         "type": "article"
       }
-    ]
+    ],
+    "media": {
+      "mode": "image",
+      "sourceUrl": "https://patents.google.com/patent/US10020004B2/en",
+      "alt": "Screenshot of the checkout audio-monitoring patent."
+    }
   },
   {
     "id": 4,
@@ -89,7 +104,12 @@ window.GAME_QUESTIONS = [
         "url": "https://corporate.walmart.com/askwalmart/what-is-walmart-doing-to-help-minimize-packaging-waste",
         "type": "article"
       }
-    ]
+    ],
+    "media": {
+      "mode": "image",
+      "sourceUrl": "https://corporate.walmart.com/news/2024/02/21/walmart-suppliers-lead-the-charge-help-deliver-project-gigaton-goal-more-than-six-years-early",
+      "alt": "Screenshot of Walmart Project Gigaton coverage."
+    }
   },
   {
     "id": 5,
@@ -112,7 +132,12 @@ window.GAME_QUESTIONS = [
         "url": "https://www.axios.com/2022/04/07/walmart-trucker-salary",
         "type": "article"
       }
-    ]
+    ],
+    "media": {
+      "mode": "image",
+      "sourceUrl": "https://corporate.walmart.com/news/2023/01/18/with-walmarts-new-associate-to-driver-program-the-wheel-is-within-reach",
+      "alt": "Screenshot of the Walmart associate-to-driver announcement."
+    }
   },
   {
     "id": 6,
@@ -135,7 +160,12 @@ window.GAME_QUESTIONS = [
         "url": "https://corporate.walmart.com/news/2022/01/05/walmart-to-expand-inhome-delivery-reaching-30-million-u-s-homes-in-2022",
         "type": "article"
       }
-    ]
+    ],
+    "media": {
+      "mode": "image",
+      "sourceUrl": "https://corporate.walmart.com/news/2019/10/15/inhome-delivery-service-officially-launches-in-kansas-city-pittsburgh-and-vero-beach",
+      "alt": "Screenshot of Walmart InHome Delivery launch coverage."
+    }
   },
   {
     "id": 7,
@@ -153,7 +183,12 @@ window.GAME_QUESTIONS = [
         "url": "https://www.walmart.com/ip/Ol-Roy-High-Performance-Dry-Dog-Food-50-lb/10898744",
         "type": "article"
       }
-    ]
+    ],
+    "media": {
+      "mode": "image",
+      "sourceUrl": "https://www.walmart.com/ip/Ol-Roy-High-Performance-Dry-Dog-Food-50-lb/10898744",
+      "alt": "Screenshot of an Ol Roy product page."
+    }
   },
   {
     "id": 8,
@@ -176,7 +211,12 @@ window.GAME_QUESTIONS = [
         "url": "https://medium.com/walmartglobaltech/using-predictive-and-gen-ai-to-improve-product-categorization-at-walmart-dc9821c6a481",
         "type": "article"
       }
-    ]
+    ],
+    "media": {
+      "mode": "image",
+      "sourceUrl": "https://www.retaildive.com/news/walmart-generative-ai-product-data-points/724782/",
+      "alt": "Screenshot of an article about Walmart generative AI product content."
+    }
   },
   {
     "id": 9,
@@ -199,7 +239,12 @@ window.GAME_QUESTIONS = [
         "url": "https://corporate.walmart.com/spark",
         "type": "article"
       }
-    ]
+    ],
+    "media": {
+      "mode": "image",
+      "sourceUrl": "https://corporate.walmart.com/news/2024/06/06/new-tech-better-outcomes-digital-shelf-labels-are-a-win-for-customers-and-associates",
+      "alt": "Screenshot of Walmart digital shelf labels coverage."
+    }
   },
   {
     "id": 10,
@@ -217,7 +262,12 @@ window.GAME_QUESTIONS = [
         "url": "https://corporate.walmart.com/news/2023/08/24/walmart-and-wing-team-up-to-provide-the-convenience-of-drone-delivery",
         "type": "article"
       }
-    ]
+    ],
+    "media": {
+      "mode": "image",
+      "sourceUrl": "https://corporate.walmart.com/news/2022/05/24/were-bringing-the-convenience-of-drone-delivery-to-4-million-u-s-households-in-partnership-with-droneup",
+      "alt": "Screenshot of Walmart drone delivery partnership coverage."
+    }
   },
   {
     "id": 11,
@@ -235,6 +285,12 @@ window.GAME_QUESTIONS = [
         "url": "https://www.upi.com/Archives/1984/03/15/WALL-STREET-HULA/9443448174800/",
         "type": "article"
       }
-    ]
+    ],
+    "media": {
+      "mode": "video",
+      "embedUrl": "https://www.youtube.com/embed/B71bRIdQzMc?rel=0&modestbranding=1",
+      "posterUrl": "https://img.youtube.com/vi/B71bRIdQzMc/hqdefault.jpg",
+      "alt": "Embedded video of Sam Walton hula dancing on Wall Street."
+    }
   }
 ];

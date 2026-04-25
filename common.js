@@ -8,6 +8,35 @@
   const TIME_LIMIT_SECONDS = (window.GAME_META && window.GAME_META.timeLimitSeconds) || 15;
   const TOTAL_QUESTIONS = (window.GAME_QUESTIONS && window.GAME_QUESTIONS.length) || 0;
   const CIRCUMFERENCE = 2 * Math.PI * 54;
+  const THUMB_PREFIX = 'https://image.thum.io/get/width/1400/crop/900/noanimate/';
+
+  const REACTION_SETS = {
+    first: [
+      { tone: 'gold', emoji: '&#128640;', title: 'Lightning fast!', body: 'First correct and 5 points. That was sharp.' },
+      { tone: 'gold', emoji: '&#127919;', title: 'Bullseye!', body: 'You were first in with the right answer. Huge round.' },
+      { tone: 'gold', emoji: '&#9889;', title: 'Fastest on the board!', body: 'You grabbed the top-speed bonus and 5 points.' }
+    ],
+    top3: [
+      { tone: 'green', emoji: '&#11088;', title: 'Top-three speed!', body: 'Right answer and quick enough for the bonus lane.' },
+      { tone: 'green', emoji: '&#127942;', title: 'Strong read!', body: 'You landed in the top three for this round.' },
+      { tone: 'green', emoji: '&#128081;', title: 'Nice catch!', body: 'That answer was right and right on time.' }
+    ],
+    correct: [
+      { tone: 'blue', emoji: '&#128079;', title: 'Point on the board!', body: 'Nice catch. You were right and kept moving.' },
+      { tone: 'blue', emoji: '&#127881;', title: 'You got it!', body: 'Good read. Keep stacking those points.' },
+      { tone: 'blue', emoji: '&#128170;', title: 'Clean hit!', body: 'Correct answer. Keep the streak alive.' }
+    ],
+    miss: [
+      { tone: 'pink', emoji: '&#128591;', title: 'Bold swing!', body: 'Nice try. You are still very much in this.' },
+      { tone: 'pink', emoji: '&#127775;', title: 'Good energy!', body: 'That one missed, but the next round is yours.' },
+      { tone: 'pink', emoji: '&#128075;', title: 'Strong guess!', body: 'Shake it off. You can bounce back fast.' }
+    ],
+    blank: [
+      { tone: 'purple', emoji: '&#127808;', title: 'Still in it!', body: 'No answer locked in, but the next one is a fresh start.' },
+      { tone: 'purple', emoji: '&#128640;', title: 'Reset and go!', body: 'Nothing locked here. Next round is ready for you.' },
+      { tone: 'purple', emoji: '&#127752;', title: 'Fresh round ahead!', body: 'You are one tap away from jumping back in.' }
+    ]
+  };
 
   let soundEnabled = localStorage.getItem(STORAGE_KEYS.soundEnabled);
   soundEnabled = soundEnabled === null ? true : soundEnabled === '1';
@@ -98,12 +127,13 @@
     const oscillator = ctx.createOscillator();
     const gain = ctx.createGain();
     const startAt = ctx.currentTime + (delay || 0);
+    const peak = Math.max(0.0001, volume || 0.06);
 
     oscillator.type = type || 'sine';
     oscillator.frequency.setValueAtTime(freq, startAt);
 
     gain.gain.setValueAtTime(0.0001, startAt);
-    gain.gain.exponentialRampToValueAtTime(volume || 0.03, startAt + 0.01);
+    gain.gain.exponentialRampToValueAtTime(peak, startAt + 0.01);
     gain.gain.exponentialRampToValueAtTime(0.0001, startAt + duration);
 
     oscillator.connect(gain);
@@ -114,22 +144,30 @@
 
   function playTick(secondsLeft) {
     const urgent = Number(secondsLeft) <= 5;
-    playTone(urgent ? 980 : 720, 0.06, 'square', urgent ? 0.05 : 0.03, 0);
+    playTone(urgent ? 1040 : 760, 0.08, 'square', urgent ? 0.12 : 0.08, 0);
   }
 
   function playSelect() {
-    playTone(540, 0.05, 'triangle', 0.025, 0);
+    playTone(540, 0.07, 'triangle', 0.08, 0);
+    playTone(680, 0.07, 'triangle', 0.06, 0.04);
+  }
+
+  function playReady() {
+    playTone(440, 0.08, 'triangle', 0.08, 0);
+    playTone(660, 0.12, 'triangle', 0.08, 0.09);
   }
 
   function playReveal() {
-    playTone(660, 0.08, 'triangle', 0.03, 0);
-    playTone(880, 0.12, 'triangle', 0.04, 0.1);
+    playTone(660, 0.12, 'triangle', 0.08, 0);
+    playTone(880, 0.14, 'triangle', 0.1, 0.12);
+    playTone(1046.5, 0.16, 'triangle', 0.1, 0.25);
   }
 
   function playVictory() {
-    playTone(523.25, 0.08, 'triangle', 0.03, 0);
-    playTone(659.25, 0.08, 'triangle', 0.03, 0.08);
-    playTone(783.99, 0.14, 'triangle', 0.04, 0.16);
+    playTone(523.25, 0.1, 'triangle', 0.08, 0);
+    playTone(659.25, 0.1, 'triangle', 0.08, 0.09);
+    playTone(783.99, 0.12, 'triangle', 0.09, 0.18);
+    playTone(1046.5, 0.18, 'triangle', 0.11, 0.3);
   }
 
   function serverNow() {
@@ -163,17 +201,17 @@
   }
 
   function answerLabel(answer) {
-    return answer === 'REAL' ? 'Real' : answer === 'FOOL' ? 'Fool' : '—';
+    return answer === 'REAL' ? 'Real' : answer === 'FOOL' ? 'Fool' : '-';
   }
 
   function sourceIcon(type) {
     const icons = {
-      article: '📰',
-      video: '▶️',
-      patent: '📜',
-      report: '📘'
+      article: '&#128240;',
+      video: '&#9654;&#65039;',
+      patent: '&#128220;',
+      report: '&#128214;'
     };
-    return icons[type] || '🔗';
+    return icons[type] || '&#128279;';
   }
 
   function renderSources(sources) {
@@ -244,7 +282,7 @@
   function renderPodium(scores, currentPlayerId) {
     const ordered = Array.isArray(scores) ? scores : [];
     const slots = [ordered[1] || null, ordered[0] || null, ordered[2] || null];
-    const medals = ['🥈', '🥇', '🥉'];
+    const medals = ['&#129352;', '&#129351;', '&#129353;'];
     const heights = ['mid', 'top', 'low'];
     const positions = ['2nd', '1st', '3rd'];
     const podiumHtml = '<div class="podium">' + slots.map(function (player, index) {
@@ -292,6 +330,154 @@
     };
   }
 
+  function hashString(value) {
+    let hash = 0;
+    String(value || '').split('').forEach(function (char) {
+      hash = ((hash << 5) - hash) + char.charCodeAt(0);
+      hash |= 0;
+    });
+    return Math.abs(hash);
+  }
+
+  function pickReaction(bucket, seed) {
+    const list = REACTION_SETS[bucket] || REACTION_SETS.correct;
+    return list[seed % list.length];
+  }
+
+  function correctEntries(roundAnswers, correctAnswer) {
+    return Object.keys(roundAnswers || {}).map(function (playerId) {
+      const entry = roundAnswers[playerId] || {};
+      return Object.assign({ playerId: playerId }, entry);
+    }).filter(function (entry) {
+      return entry && entry.answer === correctAnswer;
+    }).sort(function (a, b) {
+      return (Number(a.answeredAt) || 0) - (Number(b.answeredAt) || 0);
+    });
+  }
+
+  function reactionForPlayer(question, roundAnswers, playerId) {
+    const correctAnswer = question && question.answer;
+    const mine = roundAnswers && roundAnswers[playerId] ? roundAnswers[playerId].answer : null;
+    const placements = correctEntries(roundAnswers, correctAnswer);
+    const placement = placements.findIndex(function (entry) {
+      return entry.playerId === playerId;
+    });
+
+    let bucket = 'blank';
+    if (mine && mine === correctAnswer) {
+      bucket = placement === 0 ? 'first' : placement === 1 || placement === 2 ? 'top3' : 'correct';
+    } else if (mine) {
+      bucket = 'miss';
+    }
+    return pickReaction(bucket, hashString(playerId + ':' + (question ? question.id : 0) + ':' + bucket));
+  }
+
+  function renderReaction(reaction) {
+    const item = reaction || REACTION_SETS.correct[0];
+    return '<div class="reaction-banner tone-' + escapeHtml(item.tone || 'blue') + '">' +
+      '<div class="reaction-emoji">' + (item.emoji || '&#127881;') + '</div>' +
+      '<div class="reaction-copy-wrap"><div class="reaction-title">' + escapeHtml(item.title || 'Nice work') + '</div><div class="reaction-copy">' + escapeHtml(item.body || '') + '</div></div>' +
+    '</div>';
+  }
+
+  function youtubeEmbedUrl(url) {
+    const value = String(url || '');
+    let match = value.match(/[?&]v=([A-Za-z0-9_-]{11})/);
+    if (match && match[1]) {
+      return 'https://www.youtube.com/embed/' + match[1] + '?rel=0&modestbranding=1';
+    }
+    match = value.match(/youtu\.be\/([A-Za-z0-9_-]{11})/);
+    if (match && match[1]) {
+      return 'https://www.youtube.com/embed/' + match[1] + '?rel=0&modestbranding=1';
+    }
+    return '';
+  }
+
+  function screenshotUrl(url) {
+    const safe = String(url || '').trim();
+    if (!safe) {
+      return '';
+    }
+    return THUMB_PREFIX + safe.replace(/^http:\/\//i, 'https://');
+  }
+
+  function resolveRevealMedia(question, reveal) {
+    const explicit = (reveal && reveal.media) || (question && question.media) || {};
+    if (explicit.mode === 'video' && explicit.embedUrl) {
+      return {
+        mode: 'video',
+        embedUrl: explicit.embedUrl,
+        posterUrl: explicit.posterUrl || '',
+        alt: explicit.alt || 'Related video'
+      };
+    }
+    if (explicit.mode === 'image') {
+      const url = explicit.imageUrl || screenshotUrl(explicit.sourceUrl || '');
+      if (url) {
+        return {
+          mode: 'image',
+          imageUrl: url,
+          alt: explicit.alt || 'Related source image'
+        };
+      }
+    }
+
+    const sources = (reveal && reveal.sources) || (question && question.sources) || [];
+    const videoSource = sources.find(function (source) {
+      return !!youtubeEmbedUrl(source && source.url);
+    });
+    if (videoSource) {
+      return {
+        mode: 'video',
+        embedUrl: youtubeEmbedUrl(videoSource.url),
+        posterUrl: '',
+        alt: videoSource.title || 'Related video'
+      };
+    }
+
+    const imageSource = sources[0];
+    if (imageSource && imageSource.url) {
+      return {
+        mode: 'image',
+        imageUrl: screenshotUrl(imageSource.url),
+        alt: imageSource.title || 'Related source image'
+      };
+    }
+
+    return {
+      mode: 'empty',
+      alt: (question && question.statement) || 'No media available'
+    };
+  }
+
+  function renderRevealMedia(media, fallbackText) {
+    const item = media || { mode: 'empty' };
+    if (item.mode === 'video' && item.embedUrl) {
+      return '<div class="reveal-media media-video">' +
+        '<div class="reveal-media-frame">' +
+          '<iframe src="' + escapeHtml(item.embedUrl) + '" title="' + escapeHtml(item.alt || 'Related video') + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>' +
+        '</div>' +
+      '</div>';
+    }
+    if (item.mode === 'image' && item.imageUrl) {
+      return '<div class="reveal-media media-image">' +
+        '<div class="reveal-media-frame">' +
+          '<img src="' + escapeHtml(item.imageUrl) + '" alt="' + escapeHtml(item.alt || fallbackText || 'Related image') + '" loading="eager" referrerpolicy="no-referrer" onerror="this.parentNode.parentNode.classList.add(&quot;is-broken&quot;); this.remove();">' +
+          '<div class="reveal-media-fallback"><div class="fallback-kicker">Related source</div><div class="fallback-copy">Open the source links below for the original article or patent.</div></div>' +
+        '</div>' +
+      '</div>';
+    }
+    return '<div class="reveal-media media-empty is-broken">' +
+      '<div class="reveal-media-frame">' +
+        '<div class="reveal-media-fallback"><div class="fallback-kicker">Reveal</div><div class="fallback-copy">Open the source links below for the full artifact.</div></div>' +
+      '</div>' +
+    '</div>';
+  }
+
+  window.addEventListener('pointerdown', function () {
+    initAudio();
+  }, { passive: true });
+
   window.RF = {
     STORAGE_KEYS: STORAGE_KEYS,
     TIME_LIMIT_SECONDS: TIME_LIMIT_SECONDS,
@@ -307,6 +493,7 @@
     isSoundEnabled: isSoundEnabled,
     playTick: playTick,
     playSelect: playSelect,
+    playReady: playReady,
     playReveal: playReveal,
     playVictory: playVictory,
     serverNow: serverNow,
@@ -321,6 +508,11 @@
     renderLeaderboard: renderLeaderboard,
     renderPodium: renderPodium,
     updateTimerVisual: updateTimerVisual,
-    sessionTemplate: sessionTemplate
+    sessionTemplate: sessionTemplate,
+    reactionForPlayer: reactionForPlayer,
+    renderReaction: renderReaction,
+    resolveRevealMedia: resolveRevealMedia,
+    renderRevealMedia: renderRevealMedia,
+    correctEntries: correctEntries
   };
 })();

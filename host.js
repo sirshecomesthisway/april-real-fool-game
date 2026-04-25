@@ -19,7 +19,10 @@
     hostHint: document.getElementById('hostHint'),
     hostPlayers: document.getElementById('hostPlayers'),
     hostLeaderboard: document.getElementById('hostLeaderboard'),
+    hostStage: document.getElementById('hostStage'),
+    hostRevealScrim: document.getElementById('hostRevealScrim'),
     hostRevealPanel: document.getElementById('hostRevealPanel'),
+    hostRevealMedia: document.getElementById('hostRevealMedia'),
     hostRevealHeadline: document.getElementById('hostRevealHeadline'),
     hostRevealAnswerBadge: document.getElementById('hostRevealAnswerBadge'),
     hostRevealNote: document.getElementById('hostRevealNote'),
@@ -35,6 +38,7 @@
   let timerFrame = null;
   let activeTimerEndsAt = null;
   let revealTimeout = null;
+  let podiumTimeout = null;
   let lastTickSecond = null;
   let lastPhaseSignature = '';
 
@@ -47,15 +51,26 @@
     el.soundToggle.textContent = RF.isSoundEnabled() ? 'Sound: On' : 'Sound: Off';
   }
 
+  function clearRevealTimeout() {
+    if (revealTimeout) {
+      clearTimeout(revealTimeout);
+      revealTimeout = null;
+    }
+  }
+
+  function clearPodiumTimeout() {
+    if (podiumTimeout) {
+      clearTimeout(podiumTimeout);
+      podiumTimeout = null;
+    }
+  }
+
   function stopTimerLoop() {
     if (timerFrame) {
       cancelAnimationFrame(timerFrame);
       timerFrame = null;
     }
-    if (revealTimeout) {
-      clearTimeout(revealTimeout);
-      revealTimeout = null;
-    }
+    clearRevealTimeout();
     activeTimerEndsAt = null;
   }
 
@@ -88,6 +103,7 @@
 
   async function resetGame() {
     stopTimerLoop();
+    clearPodiumTimeout();
     await zeroScores();
     await db.ref().update({
       session: Object.assign(RF.sessionTemplate(), { updatedAt: firebase.database.ServerValue.TIMESTAMP }),
@@ -95,22 +111,25 @@
     });
   }
 
-  async function openQuestion(index) {
+  async function openQuestion(index, autoStart) {
     stopTimerLoop();
+    clearPodiumTimeout();
     const question = RF.getQuestion(index);
     if (!question) {
       await showPodium();
       return;
     }
+    const live = !!autoStart;
+    const endAt = live ? RF.serverNow() + (session.timeLimitSeconds || RF.TIME_LIMIT_SECONDS) * 1000 : null;
     await db.ref().update({
       ['answers/' + index]: null,
       session: {
         title: (window.GAME_META && window.GAME_META.title) || 'April Real / Fool',
-        phase: 'question_waiting',
+        phase: live ? 'question_live' : 'question_waiting',
         questionIndex: index,
         totalQuestions: RF.TOTAL_QUESTIONS,
         timeLimitSeconds: RF.TIME_LIMIT_SECONDS,
-        timerEndsAt: null,
+        timerEndsAt: endAt,
         reveal: null,
         updatedAt: firebase.database.ServerValue.TIMESTAMP
       }
@@ -119,8 +138,9 @@
 
   async function startGame() {
     RF.initAudio();
+    RF.playReady();
     await zeroScores();
-    await openQuestion(0);
+    await openQuestion(0, false);
   }
 
   async function startTimer() {
@@ -128,6 +148,7 @@
       return;
     }
     RF.initAudio();
+    RF.playReady();
     const endAt = RF.serverNow() + (session.timeLimitSeconds || RF.TIME_LIMIT_SECONDS) * 1000;
     await db.ref('session').update({
       phase: 'question_live',
@@ -169,11 +190,18 @@
     scoreUpdates['session/reveal'] = {
       answer: question.answer,
       artifactNote: question.artifact_note,
-      sources: question.sources || []
+      sources: question.sources || [],
+      media: question.media || null
     };
     scoreUpdates['session/updatedAt'] = firebase.database.ServerValue.TIMESTAMP;
 
     await db.ref().update(scoreUpdates);
+
+    if (Number(session.questionIndex || 0) >= RF.TOTAL_QUESTIONS - 1) {
+      podiumTimeout = setTimeout(function () {
+        showPodium();
+      }, 6500);
+    }
   }
 
   async function nextQuestion() {
@@ -182,11 +210,12 @@
       await showPodium();
       return;
     }
-    await openQuestion(nextIndex);
+    await openQuestion(nextIndex, true);
   }
 
   async function showPodium() {
     stopTimerLoop();
+    clearPodiumTimeout();
     await db.ref('session').update({
       phase: 'podium',
       timerEndsAt: null,
@@ -214,12 +243,18 @@
 
   function renderRevealPanel() {
     if (session.phase !== 'reveal') {
+      el.hostStage.classList.remove('hidden-phase');
       el.hostRevealPanel.classList.add('hidden');
+      el.hostRevealScrim.classList.add('hidden');
       return;
     }
     const reveal = session.reveal || {};
+    const question = currentQuestion();
+    el.hostStage.classList.add('hidden-phase');
     el.hostRevealPanel.classList.remove('hidden');
-    el.hostRevealHeadline.textContent = 'Correct answer: ' + RF.answerLabel(reveal.answer);
+    el.hostRevealScrim.classList.remove('hidden');
+    el.hostRevealMedia.innerHTML = RF.renderRevealMedia(RF.resolveRevealMedia(question, reveal), question ? question.statement : 'Reveal media');
+    el.hostRevealHeadline.textContent = 'Correct answer';
     el.hostRevealAnswerBadge.textContent = RF.answerLabel(reveal.answer);
     el.hostRevealAnswerBadge.className = 'reveal-answer-badge ' + (reveal.answer === 'REAL' ? 'badge-real' : 'badge-fool');
     el.hostRevealNote.textContent = reveal.artifactNote || '';
@@ -230,7 +265,15 @@
     const show = session.phase === 'podium';
     el.hostPodiumPanel.classList.toggle('hidden', !show);
     if (show) {
+      el.hostStage.classList.add('hidden-phase');
+      el.hostRevealPanel.classList.add('hidden');
+      el.hostRevealScrim.classList.remove('hidden');
       el.hostPodiumWrap.innerHTML = RF.renderPodium(RF.scoresArray(players));
+    } else {
+      el.hostPodiumPanel.classList.add('hidden');
+      if (session.phase !== 'reveal') {
+        el.hostRevealScrim.classList.add('hidden');
+      }
     }
   }
 
@@ -291,17 +334,20 @@
     el.hostAnswerCount.textContent = answerCount + ' / ' + totalPlayers;
 
     if (session.phase === 'lobby') {
+      el.hostStage.classList.remove('hidden-phase');
       setBadge('Lobby', 'pill-muted');
       el.hostHint.textContent = 'Invite players to the lobby, then click Start Game.';
     } else if (session.phase === 'question_waiting') {
+      el.hostStage.classList.remove('hidden-phase');
       setBadge('Get ready', 'pill-muted');
-      el.hostHint.textContent = 'Question is on screen. Click Start Timer when you are ready.';
+      el.hostHint.textContent = 'Question 1 is on screen. Click Start Timer when you are ready.';
     } else if (session.phase === 'question_live') {
+      el.hostStage.classList.remove('hidden-phase');
       setBadge('Live', 'pill-live');
-      el.hostHint.textContent = 'Answers are coming in now.';
+      el.hostHint.textContent = 'Answers are coming in now. After reveal, Next Question will auto-start the next timer.';
     } else if (session.phase === 'reveal') {
       setBadge('Reveal', 'pill-reveal');
-      el.hostHint.textContent = 'Use Next Question when you want to continue.';
+      el.hostHint.textContent = Number(session.questionIndex || 0) >= RF.TOTAL_QUESTIONS - 1 ? 'Final reveal. Podium will open automatically.' : 'Reveal is centered on screen. Click Next Question when you want to continue.';
     } else if (session.phase === 'podium') {
       setBadge('Podium', 'pill-live');
       el.hostHint.textContent = 'Final results are on display.';
@@ -325,6 +371,9 @@
     el.soundToggle.addEventListener('click', function () {
       RF.setSoundEnabled(!RF.isSoundEnabled());
       updateSoundToggle();
+      if (RF.isSoundEnabled()) {
+        RF.playReady();
+      }
     });
     el.resetBtn.addEventListener('click', resetGame);
     el.startGameBtn.addEventListener('click', startGame);

@@ -13,6 +13,8 @@
     lobbyPlayerCount: document.getElementById('lobbyPlayerCount'),
     lobbyQuestionCount: document.getElementById('lobbyQuestionCount'),
     lobbyPlayers: document.getElementById('lobbyPlayers'),
+    questionMain: document.getElementById('questionMain'),
+    playerRevealBackdrop: document.getElementById('playerRevealBackdrop'),
     questionCounter: document.getElementById('questionCounter'),
     phaseBadge: document.getElementById('phaseBadge'),
     questionText: document.getElementById('questionText'),
@@ -26,6 +28,8 @@
     btnFool: document.getElementById('btnFool'),
     questionHint: document.getElementById('questionHint'),
     revealPanel: document.getElementById('revealPanel'),
+    revealReaction: document.getElementById('revealReaction'),
+    revealMedia: document.getElementById('revealMedia'),
     revealHeadline: document.getElementById('revealHeadline'),
     revealAnswerBadge: document.getElementById('revealAnswerBadge'),
     revealNote: document.getElementById('revealNote'),
@@ -90,6 +94,7 @@
     playerName = clean;
     RF.setStoredName(clean);
     RF.initAudio();
+    RF.playReady();
 
     const existingScore = Number(players[playerId] && players[playerId].score) || 0;
     const joinedAt = (players[playerId] && players[playerId].joinedAt) || firebase.database.ServerValue.TIMESTAMP;
@@ -188,31 +193,34 @@
       el.lobbyStatus.textContent = 'Jump in and answer before time runs out.';
     } else if (session.phase === 'reveal') {
       el.lobbyTitle.textContent = 'Answer revealed';
-      el.lobbyStatus.textContent = 'The host will move on when ready.';
+      el.lobbyStatus.textContent = 'The reveal is on screen now.';
     } else if (session.phase === 'podium') {
       el.lobbyTitle.textContent = 'Final results';
-      el.lobbyStatus.textContent = 'Scroll down for the podium.';
+      el.lobbyStatus.textContent = 'The podium is live.';
     }
   }
 
   function renderReveal() {
-    const reveal = session.reveal || {};
     if (session.phase !== 'reveal') {
+      el.questionMain.classList.remove('hidden-phase');
+      el.playerRevealBackdrop.classList.add('hidden');
       el.revealPanel.classList.add('hidden');
       return;
     }
-    const myAnswer = currentMyAnswer();
-    const correct = reveal.answer || (currentQuestion() && currentQuestion().answer) || '';
-    const statusText = !myAnswer
-      ? 'No answer was locked in before time expired.'
-      : myAnswer === correct
-        ? 'You got it right.'
-        : 'Your final answer was ' + RF.answerLabel(myAnswer) + '.';
 
+    const question = currentQuestion();
+    const reveal = session.reveal || {};
+    const correctAnswer = reveal.answer || (question && question.answer) || '';
+    const reaction = RF.reactionForPlayer(question, roundAnswers, playerId);
+
+    el.questionMain.classList.add('hidden-phase');
+    el.playerRevealBackdrop.classList.remove('hidden');
     el.revealPanel.classList.remove('hidden');
-    el.revealHeadline.textContent = statusText;
-    el.revealAnswerBadge.textContent = RF.answerLabel(correct);
-    el.revealAnswerBadge.className = 'reveal-answer-badge ' + (correct === 'REAL' ? 'badge-real' : 'badge-fool');
+    el.revealReaction.innerHTML = RF.renderReaction(reaction);
+    el.revealMedia.innerHTML = RF.renderRevealMedia(RF.resolveRevealMedia(question, reveal), question ? question.statement : 'Reveal media');
+    el.revealHeadline.textContent = 'Correct answer';
+    el.revealAnswerBadge.textContent = RF.answerLabel(correctAnswer);
+    el.revealAnswerBadge.className = 'reveal-answer-badge ' + (correctAnswer === 'REAL' ? 'badge-real' : 'badge-fool');
     el.revealNote.textContent = reveal.artifactNote || '';
     el.revealSources.innerHTML = RF.renderSources(reveal.sources || []);
   }
@@ -231,9 +239,10 @@
     if (session.phase === 'question_live') {
       setPhaseBadge('Live', 'pill-live');
       el.questionHint.textContent = 'You can change your answer until the timer hits zero.';
-      el.yourAnswerText.textContent = myAnswer ? 'Current answer: ' + RF.answerLabel(myAnswer) : 'No answer selected yet.';
+      el.yourAnswerText.textContent = myAnswer ? 'Current answer: ' + RF.answerLabel(myAnswer) : 'Tap Real or Fool now.';
       setButtonsEnabled(true);
       runTimerLoop();
+      el.questionMain.classList.remove('hidden-phase');
     } else if (session.phase === 'question_waiting') {
       setPhaseBadge('Get ready', 'pill-muted');
       stopTimerLoop();
@@ -241,11 +250,12 @@
       el.questionHint.textContent = 'The host will start the timer soon.';
       el.yourAnswerText.textContent = 'Answer buttons unlock when the timer starts.';
       setButtonsEnabled(false);
+      el.questionMain.classList.remove('hidden-phase');
     } else if (session.phase === 'reveal') {
       setPhaseBadge('Reveal', 'pill-reveal');
       stopTimerLoop();
       RF.updateTimerVisual(el.timerNumber, el.timerRing, el.timerBar, el.timerShell, 0, 0);
-      el.questionHint.textContent = 'Watch the reveal and source links below.';
+      el.questionHint.textContent = 'Reveal on screen.';
       el.yourAnswerText.textContent = myAnswer ? 'Your final answer: ' + RF.answerLabel(myAnswer) : 'No answer selected.';
       setButtonsEnabled(false);
     } else {
@@ -255,6 +265,7 @@
       el.questionHint.textContent = 'Waiting for the host.';
       el.yourAnswerText.textContent = 'No answer selected yet.';
       setButtonsEnabled(false);
+      el.questionMain.classList.remove('hidden-phase');
     }
 
     renderReveal();
@@ -309,6 +320,9 @@
     el.soundToggle.addEventListener('click', function () {
       RF.setSoundEnabled(!RF.isSoundEnabled());
       updateSoundToggle();
+      if (RF.isSoundEnabled()) {
+        RF.playReady();
+      }
     });
     el.btnReal.addEventListener('click', function () { submitAnswer('REAL'); });
     el.btnFool.addEventListener('click', function () { submitAnswer('FOOL'); });

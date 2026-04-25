@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>April Real / Fool</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -12,17 +12,17 @@
   <div class="bg bg-3"></div>
 
   <header class="topbar">
-    <div class="brand"><span class="brand-mark">⚡</span><span>April Real / Fool</span></div>
+    <div class="brand"><span class="brand-mark">&#9889;</span><span>April Real / Fool</span></div>
     <button id="soundToggle" class="ghost-btn">Sound: On</button>
   </header>
 
   <main class="shell">
     <section id="screenJoin" class="screen active">
-      <div class="hero-card join-card">
+      <div class="hero-card join-card compact-card">
         <div class="eyebrow">Multiplayer trivia</div>
         <h1>Join the game</h1>
-        <p class="subcopy">Enter your name to join the lobby. Once the host starts, you will get 15 seconds to answer each statement.</p>
-        <div class="join-row">
+        <p class="subcopy">Enter your name and wait in the lobby. On your phone, the full round now fits with far less scrolling.</p>
+        <div class="join-row stack-mobile">
           <input id="nameInput" class="text-input" type="text" maxlength="24" placeholder="Your name">
           <button id="joinBtn" class="primary-btn">Join Lobby</button>
         </div>
@@ -31,8 +31,8 @@
     </section>
 
     <section id="screenLobby" class="screen">
-      <div class="lobby-grid">
-        <div class="panel hero-panel">
+      <div class="lobby-grid compact-lobby">
+        <div class="panel hero-panel compact-card">
           <div class="eyebrow">Lobby</div>
           <h2 id="lobbyTitle">Waiting for host</h2>
           <p id="lobbyStatus" class="subcopy">You are in. Hang tight while the host gets ready.</p>
@@ -47,7 +47,7 @@
             </div>
           </div>
         </div>
-        <div class="panel">
+        <div class="panel compact-card">
           <div class="panel-head">
             <h3>Players in lobby</h3>
           </div>
@@ -57,23 +57,24 @@
     </section>
 
     <section id="screenQuestion" class="screen">
-      <div class="question-layout">
-        <div class="question-main panel glass">
+      <div id="playerRevealBackdrop" class="overlay-backdrop hidden"></div>
+      <div class="question-layout single-column">
+        <div id="questionMain" class="question-main panel glass compact-card">
           <div class="question-top">
             <span id="questionCounter" class="pill">Question 1 of 1</span>
             <span id="phaseBadge" class="pill pill-muted">Waiting</span>
           </div>
-          <div class="question-card">
+          <div class="question-card question-card-tall">
             <div id="questionText" class="question-text">Waiting for host...</div>
           </div>
 
-          <div class="hud-row">
+          <div class="hud-row hud-row-mobile-tight">
             <div class="hud-left">
               <div id="answerCountText" class="pill pill-accent">0 / 0 answered</div>
               <div id="yourAnswerText" class="answer-status">No answer selected yet.</div>
             </div>
 
-            <div class="timer-shell" aria-label="countdown timer">
+            <div class="timer-shell timer-shell-mobile" aria-label="countdown timer">
               <svg class="countdown-svg" viewBox="0 0 140 140">
                 <circle class="countdown-track" cx="70" cy="70" r="54"></circle>
                 <circle id="timerRing" class="countdown-progress" cx="70" cy="70" r="54"></circle>
@@ -85,39 +86,43 @@
             </div>
           </div>
 
-          <div class="progress-rail">
+          <div class="progress-rail compact-rail">
             <div id="timerBar" class="progress-fill"></div>
           </div>
 
-          <div class="answer-grid">
+          <div class="answer-grid answer-grid-mobile-two">
             <button id="btnReal" class="answer-btn answer-real" type="button">
-              <span class="answer-symbol">▲</span>
+              <span class="answer-symbol">&#9650;</span>
               <span class="answer-copy">Real</span>
             </button>
             <button id="btnFool" class="answer-btn answer-fool" type="button">
-              <span class="answer-symbol">■</span>
+              <span class="answer-symbol">&#9632;</span>
               <span class="answer-copy">Fool</span>
             </button>
           </div>
 
           <div id="questionHint" class="question-hint">The host will start the timer soon.</div>
         </div>
-
-        <aside id="revealPanel" class="panel reveal-panel hidden">
-          <div class="eyebrow">Reveal</div>
-          <h3 id="revealHeadline">Correct answer</h3>
-          <div id="revealAnswerBadge" class="reveal-answer-badge">REAL</div>
-          <p id="revealNote" class="reveal-note"></p>
-          <div id="revealSources"></div>
-        </aside>
       </div>
+
+      <aside id="revealPanel" class="panel reveal-panel overlay-panel hidden">
+        <div class="eyebrow">Reveal</div>
+        <div id="revealReaction" class="reaction-slot"></div>
+        <div id="revealMedia"></div>
+        <h3 id="revealHeadline">Correct answer</h3>
+        <div id="revealAnswerBadge" class="reveal-answer-badge">REAL</div>
+        <p id="revealNote" class="reveal-note"></p>
+        <div id="revealSources"></div>
+      </aside>
     </section>
 
     <section id="screenPodium" class="screen">
-      <div class="panel podium-panel">
-        <div class="eyebrow">Final results</div>
-        <h2>Podium</h2>
-        <div id="podiumWrap"></div>
+      <div class="podium-shell">
+        <div class="panel podium-panel center-panel">
+          <div class="eyebrow">Final results</div>
+          <h2>Podium</h2>
+          <div id="podiumWrap"></div>
+        </div>
       </div>
     </section>
   </main>

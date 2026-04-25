@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>April Real / Fool — Host</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>April Real / Fool - Host</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="theme-host">
@@ -12,7 +12,7 @@
   <div class="bg bg-3"></div>
 
   <header class="topbar">
-    <div class="brand"><span class="brand-mark">🎤</span><span>April Real / Fool — Host</span></div>
+    <div class="brand"><span class="brand-mark">&#127908;</span><span>April Real / Fool - Host</span></div>
     <div class="header-actions">
       <button id="soundToggle" class="ghost-btn">Sound: On</button>
       <button id="resetBtn" class="ghost-btn danger">Reset</button>
@@ -22,7 +22,7 @@
   <main class="shell host-shell">
     <section class="host-grid">
       <div class="host-main">
-        <div class="panel control-panel">
+        <div class="panel control-panel compact-card controls-elevated">
           <div class="control-row">
             <button id="startGameBtn" class="primary-btn">Start Game</button>
             <button id="startTimerBtn" class="ghost-btn">Start Timer</button>
@@ -32,12 +32,12 @@
           </div>
         </div>
 
-        <div class="panel glass host-stage">
+        <div id="hostStage" class="panel glass host-stage compact-card">
           <div class="question-top">
             <span id="hostQuestionCounter" class="pill">Question 1 of 1</span>
             <span id="hostPhaseBadge" class="pill pill-muted">Lobby</span>
           </div>
-          <div class="question-card host-question-card">
+          <div class="question-card host-question-card question-card-tall">
             <div id="hostQuestionText" class="question-text">Waiting to start the game...</div>
           </div>
 
@@ -65,15 +65,17 @@
           <div id="hostHint" class="question-hint">Invite players to the lobby, then click Start Game.</div>
         </div>
 
-        <div id="hostRevealPanel" class="panel reveal-panel hidden">
+        <div id="hostRevealScrim" class="overlay-backdrop host-scrim hidden"></div>
+        <div id="hostRevealPanel" class="panel reveal-panel overlay-panel hidden">
           <div class="eyebrow">Reveal</div>
+          <div id="hostRevealMedia"></div>
           <h3 id="hostRevealHeadline">Correct answer</h3>
           <div id="hostRevealAnswerBadge" class="reveal-answer-badge">REAL</div>
           <p id="hostRevealNote" class="reveal-note"></p>
           <div id="hostRevealSources"></div>
         </div>
 
-        <div id="hostPodiumPanel" class="panel podium-panel hidden">
+        <div id="hostPodiumPanel" class="panel podium-panel center-panel hidden">
           <div class="eyebrow">Final results</div>
           <h2>Podium</h2>
           <div id="hostPodiumWrap"></div>
@@ -81,13 +83,13 @@
       </div>
 
       <aside class="host-side">
-        <div class="panel">
+        <div class="panel compact-card">
           <div class="panel-head">
             <h3>Players</h3>
           </div>
           <div id="hostPlayers" class="players-wall"></div>
         </div>
-        <div class="panel">
+        <div class="panel compact-card">
           <div class="panel-head">
             <h3>Leaderboard</h3>
           </div>
