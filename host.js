@@ -10,6 +10,7 @@
     hostQuestionCounter: document.getElementById('hostQuestionCounter'),
     hostPhaseBadge: document.getElementById('hostPhaseBadge'),
     hostQuestionText: document.getElementById('hostQuestionText'),
+    hostQuestionCard: document.getElementById('hostQuestionCard'),
     joinedCount: document.getElementById('joinedCount'),
     hostAnswerCount: document.getElementById('hostAnswerCount'),
     hostTimerNumber: document.getElementById('hostTimerNumber'),
@@ -241,10 +242,28 @@
     el.joinedCount.textContent = String(RF.playersArray(players).length);
   }
 
+  function preloadRevealMedia() {
+    const question = currentQuestion();
+    if (!question) {
+      return;
+    }
+    const media = RF.resolveRevealMedia(question, {});
+    if (media.mode === 'image' && media.imageUrl) {
+      new Image().src = media.imageUrl;
+    }
+    if (media.mode === 'video' && media.embedUrl && !document.querySelector('link[rel="preconnect"][href*="youtube.com"]')) {
+      var link = document.createElement('link');
+      link.rel = 'preconnect';
+      link.href = 'https://www.youtube.com';
+      document.head.appendChild(link);
+    }
+  }
+
   function renderRevealPanel() {
     const isReveal = session.phase === 'reveal';
     el.hostQuestionHud.classList.toggle('hidden', isReveal);
     el.hostRevealContent.classList.toggle('hidden', !isReveal);
+    el.hostQuestionCard.classList.toggle('host-question-compact', isReveal);
     if (!isReveal) {
       return;
     }
@@ -333,10 +352,12 @@
       el.hostStage.classList.remove('hidden-phase');
       setBadge('Get ready', 'pill-muted');
       el.hostHint.textContent = 'Question 1 is on screen. Click Start Timer when you are ready.';
+      preloadRevealMedia();
     } else if (session.phase === 'question_live') {
       el.hostStage.classList.remove('hidden-phase');
       setBadge('Live', 'pill-live');
       el.hostHint.textContent = 'Answers are coming in now. After reveal, Next Question will auto-start the next timer.';
+      preloadRevealMedia();
     } else if (session.phase === 'reveal') {
       setBadge('Reveal', 'pill-reveal');
       el.hostHint.textContent = Number(session.questionIndex || 0) >= RF.TOTAL_QUESTIONS - 1 ? 'Final reveal. Podium will open automatically.' : 'Click Next Question when you are ready to continue.';
