@@ -1,39 +1,132 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Real or Fool</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>April Real / Fool</title>
   <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-player">
+  <div class="bg bg-1"></div>
+  <div class="bg bg-2"></div>
+  <div class="bg bg-3"></div>
+
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">⚡</span><span>April Real / Fool</span></div>
+    <button id="soundToggle" class="ghost-btn">Sound: On</button>
+  </header>
+
+  <main class="shell">
+    <section id="screenJoin" class="screen active">
+      <div class="hero-card join-card">
+        <div class="eyebrow">Multiplayer trivia</div>
+        <h1>Join the game</h1>
+        <p class="subcopy">Enter your name to join the lobby. Once the host starts, you will get 15 seconds to answer each statement.</p>
+        <div class="join-row">
+          <input id="nameInput" class="text-input" type="text" maxlength="24" placeholder="Your name">
+          <button id="joinBtn" class="primary-btn">Join Lobby</button>
+        </div>
+        <p id="joinError" class="error-text"></p>
+      </div>
+    </section>
+
+    <section id="screenLobby" class="screen">
+      <div class="lobby-grid">
+        <div class="panel hero-panel">
+          <div class="eyebrow">Lobby</div>
+          <h2 id="lobbyTitle">Waiting for host</h2>
+          <p id="lobbyStatus" class="subcopy">You are in. Hang tight while the host gets ready.</p>
+          <div class="stats-row compact">
+            <div class="stat-card">
+              <div class="stat-label">Players joined</div>
+              <div id="lobbyPlayerCount" class="stat-value">0</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Questions</div>
+              <div id="lobbyQuestionCount" class="stat-value">0</div>
+            </div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Players in lobby</h3>
+          </div>
+          <div id="lobbyPlayers" class="players-wall"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="screenQuestion" class="screen">
+      <div class="question-layout">
+        <div class="question-main panel glass">
+          <div class="question-top">
+            <span id="questionCounter" class="pill">Question 1 of 1</span>
+            <span id="phaseBadge" class="pill pill-muted">Waiting</span>
+          </div>
+          <div class="question-card">
+            <div id="questionText" class="question-text">Waiting for host...</div>
+          </div>
+
+          <div class="hud-row">
+            <div class="hud-left">
+              <div id="answerCountText" class="pill pill-accent">0 / 0 answered</div>
+              <div id="yourAnswerText" class="answer-status">No answer selected yet.</div>
+            </div>
+
+            <div class="timer-shell" aria-label="countdown timer">
+              <svg class="countdown-svg" viewBox="0 0 140 140">
+                <circle class="countdown-track" cx="70" cy="70" r="54"></circle>
+                <circle id="timerRing" class="countdown-progress" cx="70" cy="70" r="54"></circle>
+              </svg>
+              <div class="countdown-core">
+                <div id="timerNumber" class="timer-number">15</div>
+                <div class="timer-label">seconds</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="progress-rail">
+            <div id="timerBar" class="progress-fill"></div>
+          </div>
+
+          <div class="answer-grid">
+            <button id="btnReal" class="answer-btn answer-real" type="button">
+              <span class="answer-symbol">▲</span>
+              <span class="answer-copy">Real</span>
+            </button>
+            <button id="btnFool" class="answer-btn answer-fool" type="button">
+              <span class="answer-symbol">■</span>
+              <span class="answer-copy">Fool</span>
+            </button>
+          </div>
+
+          <div id="questionHint" class="question-hint">The host will start the timer soon.</div>
+        </div>
+
+        <aside id="revealPanel" class="panel reveal-panel hidden">
+          <div class="eyebrow">Reveal</div>
+          <h3 id="revealHeadline">Correct answer</h3>
+          <div id="revealAnswerBadge" class="reveal-answer-badge">REAL</div>
+          <p id="revealNote" class="reveal-note"></p>
+          <div id="revealSources"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="screenPodium" class="screen">
+      <div class="panel podium-panel">
+        <div class="eyebrow">Final results</div>
+        <h2>Podium</h2>
+        <div id="podiumWrap"></div>
+      </div>
+    </section>
+  </main>
+
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-</head>
-<body class="player">
-
-<div id="join">
-  <h1>Join Game</h1>
-  <input id="name" placeholder="Your name">
-  <button onclick="join()">Join</button>
-</div>
-
-<div id="game" style="display:none;">
-  <div id="questionBox">
-    <h1 id="question">Waiting for host...</h1>
-  </div>
-
-  <div id="buttons">
-    <button class="real" onclick="answer('real')">REAL</button>
-    <button class="fool" onclick="answer('fool')">FOOL</button>
-  </div>
-
-  <div id="info">
-    <div id="timer">--</div>
-    <div id="count">0 answers</div>
-  </div>
-
-  <div id="result"></div>
-</div>
-
-<script src="firebase-config.js"></script>
-<script src="questions.js"></script>
-<script src="app.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="questions.js"></script>
+  <script src="common.js"></script>
+  <script src="player.js"></script>
 </body>
 </html>

@@ -1,23 +1,107 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Host Panel</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>April Real / Fool — Host</title>
   <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-host">
+  <div class="bg bg-1"></div>
+  <div class="bg bg-2"></div>
+  <div class="bg bg-3"></div>
+
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">🎤</span><span>April Real / Fool — Host</span></div>
+    <div class="header-actions">
+      <button id="soundToggle" class="ghost-btn">Sound: On</button>
+      <button id="resetBtn" class="ghost-btn danger">Reset</button>
+    </div>
+  </header>
+
+  <main class="shell host-shell">
+    <section class="host-grid">
+      <div class="host-main">
+        <div class="panel control-panel">
+          <div class="control-row">
+            <button id="startGameBtn" class="primary-btn">Start Game</button>
+            <button id="startTimerBtn" class="ghost-btn">Start Timer</button>
+            <button id="revealBtn" class="ghost-btn">Reveal Now</button>
+            <button id="nextBtn" class="ghost-btn">Next Question</button>
+            <button id="podiumBtn" class="ghost-btn">Show Podium</button>
+          </div>
+        </div>
+
+        <div class="panel glass host-stage">
+          <div class="question-top">
+            <span id="hostQuestionCounter" class="pill">Question 1 of 1</span>
+            <span id="hostPhaseBadge" class="pill pill-muted">Lobby</span>
+          </div>
+          <div class="question-card host-question-card">
+            <div id="hostQuestionText" class="question-text">Waiting to start the game...</div>
+          </div>
+
+          <div class="host-hud-grid">
+            <div class="stat-card large">
+              <div class="stat-label">Players joined</div>
+              <div id="joinedCount" class="stat-value">0</div>
+            </div>
+            <div class="stat-card large">
+              <div class="stat-label">Answers in</div>
+              <div id="hostAnswerCount" class="stat-value">0 / 0</div>
+            </div>
+            <div class="timer-shell small" aria-label="countdown timer">
+              <svg class="countdown-svg" viewBox="0 0 140 140">
+                <circle class="countdown-track" cx="70" cy="70" r="54"></circle>
+                <circle id="hostTimerRing" class="countdown-progress" cx="70" cy="70" r="54"></circle>
+              </svg>
+              <div class="countdown-core">
+                <div id="hostTimerNumber" class="timer-number">15</div>
+                <div class="timer-label">seconds</div>
+              </div>
+            </div>
+          </div>
+          <div class="progress-rail host-rail"><div id="hostTimerBar" class="progress-fill"></div></div>
+          <div id="hostHint" class="question-hint">Invite players to the lobby, then click Start Game.</div>
+        </div>
+
+        <div id="hostRevealPanel" class="panel reveal-panel hidden">
+          <div class="eyebrow">Reveal</div>
+          <h3 id="hostRevealHeadline">Correct answer</h3>
+          <div id="hostRevealAnswerBadge" class="reveal-answer-badge">REAL</div>
+          <p id="hostRevealNote" class="reveal-note"></p>
+          <div id="hostRevealSources"></div>
+        </div>
+
+        <div id="hostPodiumPanel" class="panel podium-panel hidden">
+          <div class="eyebrow">Final results</div>
+          <h2>Podium</h2>
+          <div id="hostPodiumWrap"></div>
+        </div>
+      </div>
+
+      <aside class="host-side">
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Players</h3>
+          </div>
+          <div id="hostPlayers" class="players-wall"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Leaderboard</h3>
+          </div>
+          <div id="hostLeaderboard" class="leaderboard-list"></div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-</head>
-<body class="host">
-
-<h1>Host Panel</h1>
-
-<button onclick="start()">Start Game</button>
-<button onclick="next()">Next Question</button>
-
-<h2 id="qnum"></h2>
-<h2 id="leaderboard"></h2>
-
-<script src="firebase-config.js"></script>
-<script src="questions.js"></script>
-<script src="host.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="questions.js"></script>
+  <script src="common.js"></script>
+  <script src="host.js"></script>
 </body>
 </html>

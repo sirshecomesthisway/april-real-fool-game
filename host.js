@@ -1,86 +1,355 @@
-let index = 0;
-let timer = 15;
-let interval;
-let scores = {};
+(function () {
+  const el = {
+    soundToggle: document.getElementById('soundToggle'),
+    resetBtn: document.getElementById('resetBtn'),
+    startGameBtn: document.getElementById('startGameBtn'),
+    startTimerBtn: document.getElementById('startTimerBtn'),
+    revealBtn: document.getElementById('revealBtn'),
+    nextBtn: document.getElementById('nextBtn'),
+    podiumBtn: document.getElementById('podiumBtn'),
+    hostQuestionCounter: document.getElementById('hostQuestionCounter'),
+    hostPhaseBadge: document.getElementById('hostPhaseBadge'),
+    hostQuestionText: document.getElementById('hostQuestionText'),
+    joinedCount: document.getElementById('joinedCount'),
+    hostAnswerCount: document.getElementById('hostAnswerCount'),
+    hostTimerNumber: document.getElementById('hostTimerNumber'),
+    hostTimerRing: document.getElementById('hostTimerRing'),
+    hostTimerBar: document.getElementById('hostTimerBar'),
+    hostTimerShell: document.querySelector('.host-stage .timer-shell'),
+    hostHint: document.getElementById('hostHint'),
+    hostPlayers: document.getElementById('hostPlayers'),
+    hostLeaderboard: document.getElementById('hostLeaderboard'),
+    hostRevealPanel: document.getElementById('hostRevealPanel'),
+    hostRevealHeadline: document.getElementById('hostRevealHeadline'),
+    hostRevealAnswerBadge: document.getElementById('hostRevealAnswerBadge'),
+    hostRevealNote: document.getElementById('hostRevealNote'),
+    hostRevealSources: document.getElementById('hostRevealSources'),
+    hostPodiumPanel: document.getElementById('hostPodiumPanel'),
+    hostPodiumWrap: document.getElementById('hostPodiumWrap')
+  };
 
-function start() {
-  index = 0;
-  scores = {};
-  loadQ();
-}
+  let session = RF.sessionTemplate();
+  let players = {};
+  let roundAnswers = {};
+  let answerRef = null;
+  let timerFrame = null;
+  let activeTimerEndsAt = null;
+  let revealTimeout = null;
+  let lastTickSecond = null;
+  let lastPhaseSignature = '';
 
-function loadQ() {
-  db.ref("answers").set({});
-  db.ref("reveal").set(null);
-  db.ref("game").set(questions[index]);
-  document.getElementById("qnum").innerText = "Question " + (index+1);
+  function setBadge(text, variant) {
+    el.hostPhaseBadge.textContent = text;
+    el.hostPhaseBadge.className = 'pill ' + (variant || 'pill-muted');
+  }
 
-  startTimer();
-}
+  function updateSoundToggle() {
+    el.soundToggle.textContent = RF.isSoundEnabled() ? 'Sound: On' : 'Sound: Off';
+  }
 
-function startTimer() {
-  timer = 15;
-  db.ref("timer").set(timer);
-
-  clearInterval(interval);
-
-  interval = setInterval(()=>{
-    timer--;
-    db.ref("timer").set(timer);
-
-    if(timer<=0){
-      clearInterval(interval);
-      score();
-      reveal();
+  function stopTimerLoop() {
+    if (timerFrame) {
+      cancelAnimationFrame(timerFrame);
+      timerFrame = null;
     }
-  },1000);
-}
+    if (revealTimeout) {
+      clearTimeout(revealTimeout);
+      revealTimeout = null;
+    }
+    activeTimerEndsAt = null;
+  }
 
-function next(){
-  index++;
-  if(index<questions.length) loadQ();
-  else alert("Game Over");
-}
+  function currentQuestion() {
+    return RF.getQuestion(session.questionIndex);
+  }
 
-function reveal(){
-  const q = questions[index];
-  db.ref("reveal").set({
-    answer:q.a,
-    link:q.link
-  });
-}
+  function attachAnswersListener(questionIndex) {
+    if (answerRef) {
+      answerRef.off();
+    }
+    answerRef = db.ref('answers/' + questionIndex);
+    answerRef.on('value', function (snap) {
+      roundAnswers = snap.val() || {};
+      render();
+    });
+  }
 
-function score(){
-  db.ref("answers").once("value", snap=>{
-    const data = snap.val()||{};
-    let correct=[];
+  async function zeroScores() {
+    const snap = await db.ref('players').once('value');
+    const currentPlayers = snap.val() || {};
+    const updates = {};
+    Object.keys(currentPlayers).forEach(function (id) {
+      updates['players/' + id + '/score'] = 0;
+    });
+    if (Object.keys(updates).length) {
+      await db.ref().update(updates);
+    }
+  }
 
-    Object.entries(data).forEach(([name,val])=>{
-      if(val.answer===questions[index].a){
-        correct.push({name,time:val.time});
+  async function resetGame() {
+    stopTimerLoop();
+    await zeroScores();
+    await db.ref().update({
+      session: Object.assign(RF.sessionTemplate(), { updatedAt: firebase.database.ServerValue.TIMESTAMP }),
+      answers: null
+    });
+  }
+
+  async function openQuestion(index) {
+    stopTimerLoop();
+    const question = RF.getQuestion(index);
+    if (!question) {
+      await showPodium();
+      return;
+    }
+    await db.ref().update({
+      ['answers/' + index]: null,
+      session: {
+        title: (window.GAME_META && window.GAME_META.title) || 'April Real / Fool',
+        phase: 'question_waiting',
+        questionIndex: index,
+        totalQuestions: RF.TOTAL_QUESTIONS,
+        timeLimitSeconds: RF.TIME_LIMIT_SECONDS,
+        timerEndsAt: null,
+        reveal: null,
+        updatedAt: firebase.database.ServerValue.TIMESTAMP
       }
     });
+  }
 
-    correct.sort((a,b)=>a.time-b.time);
+  async function startGame() {
+    RF.initAudio();
+    await zeroScores();
+    await openQuestion(0);
+  }
 
-    correct.forEach((p,i)=>{
-      if(!scores[p.name]) scores[p.name]=0;
-      if(i===0) scores[p.name]+=5;
-      else if(i<=2) scores[p.name]+=3;
-      else scores[p.name]+=1;
+  async function startTimer() {
+    if (session.phase !== 'question_waiting') {
+      return;
+    }
+    RF.initAudio();
+    const endAt = RF.serverNow() + (session.timeLimitSeconds || RF.TIME_LIMIT_SECONDS) * 1000;
+    await db.ref('session').update({
+      phase: 'question_live',
+      timerEndsAt: endAt,
+      reveal: null,
+      updatedAt: firebase.database.ServerValue.TIMESTAMP
+    });
+  }
+
+  async function revealCurrent() {
+    if (session.phase === 'reveal' || session.phase === 'podium' || session.phase === 'lobby') {
+      return;
+    }
+    stopTimerLoop();
+    const question = currentQuestion();
+    if (!question) {
+      return;
+    }
+
+    const answersSnap = await db.ref('answers/' + session.questionIndex).once('value');
+    const answerMap = answersSnap.val() || {};
+    const correctEntries = Object.keys(answerMap).map(function (playerId) {
+      return answerMap[playerId];
+    }).filter(function (entry) {
+      return entry && entry.answer === question.answer;
+    }).sort(function (a, b) {
+      return (Number(a.answeredAt) || 0) - (Number(b.answeredAt) || 0);
     });
 
-    updateBoard();
-  });
-}
+    const scoreUpdates = {};
+    correctEntries.forEach(function (entry, index) {
+      const currentScore = Number(players[entry.playerId] && players[entry.playerId].score) || 0;
+      const bonus = index === 0 ? 5 : index <= 2 ? 3 : 1;
+      scoreUpdates['players/' + entry.playerId + '/score'] = currentScore + bonus;
+    });
 
-function updateBoard(){
-  let text="Leaderboard\n";
-  Object.entries(scores)
-  .sort((a,b)=>b[1]-a[1])
-  .forEach(([n,s])=>{
-    text+=n+": "+s+"\n";
-  });
+    scoreUpdates['session/phase'] = 'reveal';
+    scoreUpdates['session/timerEndsAt'] = null;
+    scoreUpdates['session/reveal'] = {
+      answer: question.answer,
+      artifactNote: question.artifact_note,
+      sources: question.sources || []
+    };
+    scoreUpdates['session/updatedAt'] = firebase.database.ServerValue.TIMESTAMP;
 
-  document.getElementById("leaderboard").innerText=text;
-}
+    await db.ref().update(scoreUpdates);
+  }
+
+  async function nextQuestion() {
+    const nextIndex = Number(session.questionIndex || 0) + 1;
+    if (nextIndex >= RF.TOTAL_QUESTIONS) {
+      await showPodium();
+      return;
+    }
+    await openQuestion(nextIndex);
+  }
+
+  async function showPodium() {
+    stopTimerLoop();
+    await db.ref('session').update({
+      phase: 'podium',
+      timerEndsAt: null,
+      reveal: null,
+      updatedAt: firebase.database.ServerValue.TIMESTAMP
+    });
+  }
+
+  function renderControls() {
+    el.startGameBtn.disabled = false;
+    el.startTimerBtn.disabled = session.phase !== 'question_waiting';
+    el.revealBtn.disabled = !(session.phase === 'question_waiting' || session.phase === 'question_live');
+    el.nextBtn.disabled = session.phase !== 'reveal';
+    el.podiumBtn.disabled = !(session.phase === 'reveal' || session.phase === 'podium');
+  }
+
+  function renderLeaderboard() {
+    el.hostLeaderboard.innerHTML = RF.renderLeaderboard(RF.scoresArray(players));
+  }
+
+  function renderPlayers() {
+    el.hostPlayers.innerHTML = RF.renderPlayerChips(players);
+    el.joinedCount.textContent = String(RF.playersArray(players).length);
+  }
+
+  function renderRevealPanel() {
+    if (session.phase !== 'reveal') {
+      el.hostRevealPanel.classList.add('hidden');
+      return;
+    }
+    const reveal = session.reveal || {};
+    el.hostRevealPanel.classList.remove('hidden');
+    el.hostRevealHeadline.textContent = 'Correct answer: ' + RF.answerLabel(reveal.answer);
+    el.hostRevealAnswerBadge.textContent = RF.answerLabel(reveal.answer);
+    el.hostRevealAnswerBadge.className = 'reveal-answer-badge ' + (reveal.answer === 'REAL' ? 'badge-real' : 'badge-fool');
+    el.hostRevealNote.textContent = reveal.artifactNote || '';
+    el.hostRevealSources.innerHTML = RF.renderSources(reveal.sources || []);
+  }
+
+  function renderPodiumPanel() {
+    const show = session.phase === 'podium';
+    el.hostPodiumPanel.classList.toggle('hidden', !show);
+    if (show) {
+      el.hostPodiumWrap.innerHTML = RF.renderPodium(RF.scoresArray(players));
+    }
+  }
+
+  function renderTimer() {
+    if (session.phase === 'question_live') {
+      if (timerFrame && activeTimerEndsAt === session.timerEndsAt) {
+        return;
+      }
+      const durationMs = (session.timeLimitSeconds || RF.TIME_LIMIT_SECONDS) * 1000;
+      function step() {
+        if (session.phase !== 'question_live') {
+          return;
+        }
+        const timer = RF.calcTimerState(session.timerEndsAt, durationMs);
+        RF.updateTimerVisual(el.hostTimerNumber, el.hostTimerRing, el.hostTimerBar, el.hostTimerShell, timer.remainingSeconds, timer.fraction);
+        if (timer.remainingSeconds > 0 && timer.remainingSeconds !== lastTickSecond) {
+          lastTickSecond = timer.remainingSeconds;
+          RF.playTick(timer.remainingSeconds);
+        }
+        if (timer.remainingMs > 0) {
+          timerFrame = requestAnimationFrame(step);
+        } else {
+          RF.updateTimerVisual(el.hostTimerNumber, el.hostTimerRing, el.hostTimerBar, el.hostTimerShell, 0, 0);
+        }
+      }
+      stopTimerLoop();
+      activeTimerEndsAt = session.timerEndsAt;
+      lastTickSecond = null;
+      step();
+      revealTimeout = setTimeout(function () {
+        revealCurrent();
+      }, Math.max(0, Number(session.timerEndsAt || 0) - RF.serverNow()) + 80);
+      return;
+    }
+
+    stopTimerLoop();
+    if (session.phase === 'question_waiting') {
+      RF.updateTimerVisual(el.hostTimerNumber, el.hostTimerRing, el.hostTimerBar, el.hostTimerShell, session.timeLimitSeconds || RF.TIME_LIMIT_SECONDS, 1);
+    } else {
+      RF.updateTimerVisual(el.hostTimerNumber, el.hostTimerRing, el.hostTimerBar, el.hostTimerShell, 0, 0);
+    }
+  }
+
+  function render() {
+    updateSoundToggle();
+    renderControls();
+    renderPlayers();
+    renderLeaderboard();
+    renderRevealPanel();
+    renderPodiumPanel();
+
+    const question = currentQuestion();
+    const totalPlayers = RF.playersArray(players).length;
+    const answerCount = Object.keys(roundAnswers || {}).length;
+
+    el.hostQuestionCounter.textContent = 'Question ' + (Number(session.questionIndex || 0) + 1) + ' of ' + RF.TOTAL_QUESTIONS;
+    el.hostQuestionText.textContent = question ? question.statement : 'Waiting to start the game...';
+    el.hostAnswerCount.textContent = answerCount + ' / ' + totalPlayers;
+
+    if (session.phase === 'lobby') {
+      setBadge('Lobby', 'pill-muted');
+      el.hostHint.textContent = 'Invite players to the lobby, then click Start Game.';
+    } else if (session.phase === 'question_waiting') {
+      setBadge('Get ready', 'pill-muted');
+      el.hostHint.textContent = 'Question is on screen. Click Start Timer when you are ready.';
+    } else if (session.phase === 'question_live') {
+      setBadge('Live', 'pill-live');
+      el.hostHint.textContent = 'Answers are coming in now.';
+    } else if (session.phase === 'reveal') {
+      setBadge('Reveal', 'pill-reveal');
+      el.hostHint.textContent = 'Use Next Question when you want to continue.';
+    } else if (session.phase === 'podium') {
+      setBadge('Podium', 'pill-live');
+      el.hostHint.textContent = 'Final results are on display.';
+    }
+
+    const signature = session.phase + ':' + session.questionIndex;
+    if (signature !== lastPhaseSignature) {
+      if (session.phase === 'reveal') {
+        RF.playReveal();
+      }
+      if (session.phase === 'podium') {
+        RF.playVictory();
+      }
+      lastPhaseSignature = signature;
+    }
+
+    renderTimer();
+  }
+
+  function boot() {
+    el.soundToggle.addEventListener('click', function () {
+      RF.setSoundEnabled(!RF.isSoundEnabled());
+      updateSoundToggle();
+    });
+    el.resetBtn.addEventListener('click', resetGame);
+    el.startGameBtn.addEventListener('click', startGame);
+    el.startTimerBtn.addEventListener('click', startTimer);
+    el.revealBtn.addEventListener('click', revealCurrent);
+    el.nextBtn.addEventListener('click', nextQuestion);
+    el.podiumBtn.addEventListener('click', showPodium);
+
+    db.ref('players').on('value', function (snap) {
+      players = snap.val() || {};
+      render();
+    });
+
+    db.ref('session').on('value', function (snap) {
+      const next = snap.val() || RF.sessionTemplate();
+      const qChanged = next.questionIndex !== session.questionIndex;
+      session = Object.assign(RF.sessionTemplate(), next);
+      if (qChanged || !answerRef) {
+        attachAnswersListener(session.questionIndex || 0);
+      }
+      render();
+    });
+
+    render();
+  }
+
+  boot();
+})();
