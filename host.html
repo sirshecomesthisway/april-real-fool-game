@@ -41,39 +41,41 @@
             <div id="hostQuestionText" class="question-text">Waiting to start the game...</div>
           </div>
 
-          <div class="host-hud-grid">
-            <div class="stat-card large">
-              <div class="stat-label">Players joined</div>
-              <div id="joinedCount" class="stat-value">0</div>
-            </div>
-            <div class="stat-card large">
-              <div class="stat-label">Answers in</div>
-              <div id="hostAnswerCount" class="stat-value">0 / 0</div>
-            </div>
-            <div class="timer-shell small" aria-label="countdown timer">
-              <svg class="countdown-svg" viewBox="0 0 140 140">
-                <circle class="countdown-track" cx="70" cy="70" r="54"></circle>
-                <circle id="hostTimerRing" class="countdown-progress" cx="70" cy="70" r="54"></circle>
-              </svg>
-              <div class="countdown-core">
-                <div id="hostTimerNumber" class="timer-number">15</div>
-                <div class="timer-label">seconds</div>
+          <div id="hostQuestionHud">
+            <div class="host-hud-grid">
+              <div class="stat-card large">
+                <div class="stat-label">Players joined</div>
+                <div id="joinedCount" class="stat-value">0</div>
+              </div>
+              <div class="stat-card large">
+                <div class="stat-label">Answers in</div>
+                <div id="hostAnswerCount" class="stat-value">0 / 0</div>
+              </div>
+              <div class="timer-shell small" aria-label="countdown timer">
+                <svg class="countdown-svg" viewBox="0 0 140 140">
+                  <circle class="countdown-track" cx="70" cy="70" r="54"></circle>
+                  <circle id="hostTimerRing" class="countdown-progress" cx="70" cy="70" r="54"></circle>
+                </svg>
+                <div class="countdown-core">
+                  <div id="hostTimerNumber" class="timer-number">15</div>
+                  <div class="timer-label">seconds</div>
+                </div>
               </div>
             </div>
+            <div class="progress-rail host-rail"><div id="hostTimerBar" class="progress-fill"></div></div>
           </div>
-          <div class="progress-rail host-rail"><div id="hostTimerBar" class="progress-fill"></div></div>
+
+          <div id="hostRevealContent" class="host-reveal-inline hidden">
+            <div id="hostRevealAnswerBadge" class="reveal-answer-badge">REAL</div>
+            <div id="hostRevealMedia"></div>
+            <p id="hostRevealNote" class="reveal-note"></p>
+            <div id="hostRevealSources"></div>
+          </div>
+
           <div id="hostHint" class="question-hint">Invite players to the lobby, then click Start Game.</div>
         </div>
 
         <div id="hostRevealScrim" class="overlay-backdrop host-scrim hidden"></div>
-        <div id="hostRevealPanel" class="panel reveal-panel overlay-panel hidden">
-          <div class="eyebrow">Reveal</div>
-          <div id="hostRevealMedia"></div>
-          <h3 id="hostRevealHeadline">Correct answer</h3>
-          <div id="hostRevealAnswerBadge" class="reveal-answer-badge">REAL</div>
-          <p id="hostRevealNote" class="reveal-note"></p>
-          <div id="hostRevealSources"></div>
-        </div>
 
         <div id="hostPodiumPanel" class="panel podium-panel center-panel hidden">
           <div class="eyebrow">Final results</div>

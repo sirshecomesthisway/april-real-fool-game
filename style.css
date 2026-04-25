@@ -790,6 +790,14 @@ button:disabled {
   margin-top: 22px;
 }
 
+.host-reveal-inline {
+  margin-top: 22px;
+}
+
+.host-reveal-inline .reveal-answer-badge {
+  margin-bottom: 14px;
+}
+
 .leaderboard-list {
   display: grid;
   gap: 10px;

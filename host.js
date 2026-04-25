@@ -20,10 +20,10 @@
     hostPlayers: document.getElementById('hostPlayers'),
     hostLeaderboard: document.getElementById('hostLeaderboard'),
     hostStage: document.getElementById('hostStage'),
+    hostQuestionHud: document.getElementById('hostQuestionHud'),
+    hostRevealContent: document.getElementById('hostRevealContent'),
     hostRevealScrim: document.getElementById('hostRevealScrim'),
-    hostRevealPanel: document.getElementById('hostRevealPanel'),
     hostRevealMedia: document.getElementById('hostRevealMedia'),
-    hostRevealHeadline: document.getElementById('hostRevealHeadline'),
     hostRevealAnswerBadge: document.getElementById('hostRevealAnswerBadge'),
     hostRevealNote: document.getElementById('hostRevealNote'),
     hostRevealSources: document.getElementById('hostRevealSources'),
@@ -242,19 +242,15 @@
   }
 
   function renderRevealPanel() {
-    if (session.phase !== 'reveal') {
-      el.hostStage.classList.remove('hidden-phase');
-      el.hostRevealPanel.classList.add('hidden');
-      el.hostRevealScrim.classList.add('hidden');
+    const isReveal = session.phase === 'reveal';
+    el.hostQuestionHud.classList.toggle('hidden', isReveal);
+    el.hostRevealContent.classList.toggle('hidden', !isReveal);
+    if (!isReveal) {
       return;
     }
     const reveal = session.reveal || {};
     const question = currentQuestion();
-    el.hostStage.classList.add('hidden-phase');
-    el.hostRevealPanel.classList.remove('hidden');
-    el.hostRevealScrim.classList.remove('hidden');
     el.hostRevealMedia.innerHTML = RF.renderRevealMedia(RF.resolveRevealMedia(question, reveal), question ? question.statement : 'Reveal media');
-    el.hostRevealHeadline.textContent = 'Correct answer';
     el.hostRevealAnswerBadge.textContent = RF.answerLabel(reveal.answer);
     el.hostRevealAnswerBadge.className = 'reveal-answer-badge ' + (reveal.answer === 'REAL' ? 'badge-real' : 'badge-fool');
     el.hostRevealNote.textContent = reveal.artifactNote || '';
@@ -264,16 +260,12 @@
   function renderPodiumPanel() {
     const show = session.phase === 'podium';
     el.hostPodiumPanel.classList.toggle('hidden', !show);
+    el.hostRevealScrim.classList.toggle('hidden', !show);
     if (show) {
       el.hostStage.classList.add('hidden-phase');
-      el.hostRevealPanel.classList.add('hidden');
-      el.hostRevealScrim.classList.remove('hidden');
       el.hostPodiumWrap.innerHTML = RF.renderPodium(RF.scoresArray(players));
     } else {
-      el.hostPodiumPanel.classList.add('hidden');
-      if (session.phase !== 'reveal') {
-        el.hostRevealScrim.classList.add('hidden');
-      }
+      el.hostStage.classList.remove('hidden-phase');
     }
   }
 
@@ -347,7 +339,7 @@
       el.hostHint.textContent = 'Answers are coming in now. After reveal, Next Question will auto-start the next timer.';
     } else if (session.phase === 'reveal') {
       setBadge('Reveal', 'pill-reveal');
-      el.hostHint.textContent = Number(session.questionIndex || 0) >= RF.TOTAL_QUESTIONS - 1 ? 'Final reveal. Podium will open automatically.' : 'Reveal is centered on screen. Click Next Question when you want to continue.';
+      el.hostHint.textContent = Number(session.questionIndex || 0) >= RF.TOTAL_QUESTIONS - 1 ? 'Final reveal. Podium will open automatically.' : 'Click Next Question when you are ready to continue.';
     } else if (session.phase === 'podium') {
       setBadge('Podium', 'pill-live');
       el.hostHint.textContent = 'Final results are on display.';
