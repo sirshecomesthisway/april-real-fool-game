@@ -20,5 +20,23 @@ db.ref("game").on("value", snap => {
 });
 
 db.ref("timer").on("value", snap => {
-  document.getElementById("timer").innerText = snap.val() + "s";
+  const t = snap.val();
+  document.getElementById("timer").innerText = t;
+
+  if (t <= 5) document.getElementById("timer").style.color = "red";
+  else document.getElementById("timer").style.color = "white";
+});
+
+db.ref("answers").on("value", snap => {
+  const data = snap.val() || {};
+  document.getElementById("count").innerText = Object.keys(data).length + " answers";
+});
+
+db.ref("reveal").on("value", snap => {
+  const data = snap.val();
+  if (!data) return;
+
+  document.getElementById("result").innerHTML =
+    "Answer: " + data.answer +
+    "<br><a href='" + data.link + "' target='_blank'>View source</a>";
 });
