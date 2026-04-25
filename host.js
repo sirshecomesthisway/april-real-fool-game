@@ -104,10 +104,10 @@
   async function resetGame() {
     stopTimerLoop();
     clearPodiumTimeout();
-    await zeroScores();
     await db.ref().update({
       session: Object.assign(RF.sessionTemplate(), { updatedAt: firebase.database.ServerValue.TIMESTAMP }),
-      answers: null
+      answers: null,
+      players: null
     });
   }
 
