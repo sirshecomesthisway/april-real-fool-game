@@ -6,19 +6,30 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 </head>
-<body>
+<body class="player">
 
 <div id="join">
-  <h2>Enter Name</h2>
-  <input id="name">
+  <h1>Join Game</h1>
+  <input id="name" placeholder="Your name">
   <button onclick="join()">Join</button>
 </div>
 
 <div id="game" style="display:none;">
-  <h2 id="question"></h2>
-  <button onclick="answer('real')">Real</button>
-  <button onclick="answer('fool')">Fool</button>
-  <h3 id="timer"></h3>
+  <div id="questionBox">
+    <h1 id="question">Waiting for host...</h1>
+  </div>
+
+  <div id="buttons">
+    <button class="real" onclick="answer('real')">REAL</button>
+    <button class="fool" onclick="answer('fool')">FOOL</button>
+  </div>
+
+  <div id="info">
+    <div id="timer">--</div>
+    <div id="count">0 answers</div>
+  </div>
+
+  <div id="result"></div>
 </div>
 
 <script src="firebase-config.js"></script>

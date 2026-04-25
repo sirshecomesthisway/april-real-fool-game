@@ -1,2 +1,40 @@
-body { font-family: Arial; text-align: center; }
-button { padding: 10px; margin: 10px; }
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #121212;
+    color: white;
+  }
+  
+  #questionBox {
+    margin: 40px;
+  }
+  
+  #question {
+    font-size: 2.5em;
+  }
+  
+  #buttons button {
+    font-size: 1.5em;
+    padding: 20px;
+    margin: 20px;
+    width: 200px;
+    border: none;
+    border-radius: 10px;
+  }
+  
+  .real { background: #4CAF50; }
+  .fool { background: #F44336; }
+  
+  #timer {
+    font-size: 3em;
+  }
+  
+  #count {
+    font-size: 1.5em;
+  }
+  
+  #result {
+    margin-top: 20px;
+    font-size: 1.2em;
+  }
+  
