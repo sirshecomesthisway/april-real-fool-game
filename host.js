@@ -198,11 +198,7 @@
 
     await db.ref().update(scoreUpdates);
 
-    if (Number(session.questionIndex || 0) >= RF.TOTAL_QUESTIONS - 1) {
-      podiumTimeout = setTimeout(function () {
-        showPodium();
-      }, 6500);
-    }
+
   }
 
   async function nextQuestion() {
@@ -341,7 +337,7 @@
       el.hostHint.textContent = 'Answers are coming in now. After reveal, Next Question will auto-start the next timer.';
     } else if (session.phase === 'reveal') {
       setBadge('Reveal', 'pill-reveal');
-      el.hostHint.textContent = Number(session.questionIndex || 0) >= RF.TOTAL_QUESTIONS - 1 ? 'Final reveal. Podium will open automatically.' : 'Click Next Question when you are ready to continue.';
+      el.hostHint.textContent = Number(session.questionIndex || 0) >= RF.TOTAL_QUESTIONS - 1 ? 'Final reveal! Click Show Podium when you\'re ready.' : 'Click Next Question when you are ready to continue.';
     } else if (session.phase === 'podium') {
       setBadge('Podium', 'pill-live');
       el.hostHint.textContent = 'Final results are on display.';
