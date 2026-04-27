@@ -141,7 +141,7 @@
     RF.initAudio();
     RF.playReady();
     await zeroScores();
-    await openQuestion(0, false);
+    await openQuestion(0, true);
   }
 
   async function startTimer() {
@@ -339,7 +339,7 @@
       setBadge('Reveal', 'pill-reveal');
       el.hostHint.textContent = Number(session.questionIndex || 0) >= RF.TOTAL_QUESTIONS - 1 ? 'Final reveal! Click Show Podium when you\'re ready.' : 'Click Next Question when you are ready to continue.';
     } else if (session.phase === 'podium') {
-      setBadge('Podium', 'pill-live');
+      setBadge('Podium', 'pill-podium');
       el.hostHint.textContent = 'Final results are on display.';
     }
 

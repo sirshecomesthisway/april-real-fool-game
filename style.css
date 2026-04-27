@@ -396,18 +396,23 @@ button:disabled {
 }
 
 .pill-live {
-  background: rgba(46, 207, 115, 0.2);
-  color: #bff9d2;
+  background: rgba(0, 83, 226, 0.25);
+  color: #a3c4ff;
 }
 
 .pill-reveal {
-  background: rgba(255, 79, 120, 0.2);
-  color: #ffd3dd;
+  background: rgba(255, 194, 32, 0.22);
+  color: #ffe291;
 }
 
 .pill-accent {
   background: rgba(77, 126, 255, 0.2);
   color: #dbe4ff;
+}
+
+.pill-podium {
+  background: rgba(255, 194, 32, 0.25);
+  color: #ffe291;
 }
 
 .question-card {
@@ -615,6 +620,12 @@ button:disabled {
 
 .reveal-panel {
   padding: 24px;
+  text-align: center;
+}
+
+.reveal-panel .reveal-note,
+.reveal-panel .source-list {
+  text-align: left;
 }
 
 .reveal-media {
@@ -674,6 +685,22 @@ button:disabled {
   border-radius: 18px;
   font-size: 1.5rem;
   font-weight: 900;
+  animation: badge-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes badge-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) rotate(-8deg);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.12) rotate(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
 }
 
 .badge-real {
@@ -798,6 +825,7 @@ button:disabled {
 
 .host-reveal-inline {
   margin-top: 22px;
+  text-align: center;
 }
 
 .host-reveal-inline .reveal-answer-badge {
