@@ -79,8 +79,6 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  max-width: 1440px;
-  margin: 0 auto;
   padding: 12px 20px;
   backdrop-filter: blur(10px);
   background: rgba(10, 9, 16, 0.45);
