@@ -189,9 +189,8 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "imageUrl": "images/q7.jpg?v=2",
-      "alt": "Sam Walton with his bird dog Ol' Roy.",
-      "objectPosition": "center 75%"
+      "imageUrl": "images/q7.jpg?v=3",
+      "alt": "Sam Walton with his bird dog Ol' Roy."
     }
   },
   {
