@@ -28,8 +28,8 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "sourceUrl": "https://www.walmart.com/c/best-sellers/garden-outdoor-mulch",
-      "alt": "Screenshot of the Walmart mulch best-sellers page."
+      "imageUrl": "images/q1.svg",
+      "alt": "Walmart best-selling mulch illustration."
     }
   },
   {
@@ -56,8 +56,8 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "sourceUrl": "https://patents.justia.com/patent/10521806",
-      "alt": "Screenshot of a patent page related to Walmart blockchain supply-chain control."
+      "imageUrl": "images/q2.svg",
+      "alt": "Blockchain mango tracker patent illustration."
     }
   },
   {
@@ -79,8 +79,8 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "sourceUrl": "https://patents.google.com/patent/US10020004B2/en",
-      "alt": "Screenshot of the checkout audio-monitoring patent."
+      "imageUrl": "images/q3.svg",
+      "alt": "Checkout sound patent illustration."
     }
   },
   {
@@ -107,8 +107,8 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "sourceUrl": "https://www.axios.com/2022/04/07/walmart-trucker-salary",
-      "alt": "Screenshot of Axios coverage of Walmart trucker salary."
+      "imageUrl": "images/q4.svg",
+      "alt": "Project Gigaton illustration."
     }
   },
   {
@@ -135,8 +135,8 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "sourceUrl": "https://apnews.com/article/walmart-workers-wages-training-36cecdc9ccbe419753fb84e7161f99f4",
-      "alt": "Screenshot of AP News coverage of Walmart truck driver pay."
+      "imageUrl": "images/q5.svg",
+      "alt": "Truck driver pay illustration."
     }
   },
   {
@@ -163,8 +163,8 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "sourceUrl": "https://www.theverge.com/2019/6/6/18655543/walmart-inhome-delivery-fridge-stocking-service",
-      "alt": "Screenshot of The Verge coverage of Walmart InHome Delivery."
+      "imageUrl": "images/q6.svg",
+      "alt": "InHome Delivery illustration."
     }
   },
   {
@@ -186,8 +186,8 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "sourceUrl": "https://www.walmart.com/ip/Ol-Roy-High-Performance-Dry-Dog-Food-50-lb/10898744",
-      "alt": "Screenshot of an Ol Roy product page."
+      "imageUrl": "images/q7.svg",
+      "alt": "Ol' Roy dog food illustration."
     }
   },
   {
@@ -214,8 +214,8 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "sourceUrl": "https://www.retaildive.com/news/walmart-generative-ai-product-data-points/724782/",
-      "alt": "Screenshot of an article about Walmart generative AI product content."
+      "imageUrl": "images/q8.svg",
+      "alt": "Generative AI catalog illustration."
     }
   },
   {
@@ -242,8 +242,8 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "sourceUrl": "https://www.retaildive.com/news/walmart-generative-ai-product-data-points/724782/",
-      "alt": "Screenshot of Retail Dive coverage of Walmart digital shelf labels."
+      "imageUrl": "images/q9.svg",
+      "alt": "Digital shelf labels illustration."
     }
   },
   {
@@ -265,8 +265,8 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "sourceUrl": "https://www.cnbc.com/2022/05/24/walmart-expands-droneup-drone-delivery-to-reach-4-million-households.html",
-      "alt": "Screenshot of CNBC coverage of Walmart drone delivery."
+      "imageUrl": "images/q10.svg",
+      "alt": "Drone delivery illustration."
     }
   },
   {

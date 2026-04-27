@@ -8,7 +8,6 @@
   const TIME_LIMIT_SECONDS = (window.GAME_META && window.GAME_META.timeLimitSeconds) || 15;
   const TOTAL_QUESTIONS = (window.GAME_QUESTIONS && window.GAME_QUESTIONS.length) || 0;
   const CIRCUMFERENCE = 2 * Math.PI * 54;
-  const THUMB_PREFIX = 'https://image.thum.io/get/width/1400/crop/900/noanimate/';
 
   const REACTION_SETS = {
     first: [
@@ -393,14 +392,6 @@
     return '';
   }
 
-  function screenshotUrl(url) {
-    const safe = String(url || '').trim();
-    if (!safe) {
-      return '';
-    }
-    return THUMB_PREFIX + safe.replace(/^http:\/\//i, 'https://');
-  }
-
   function resolveRevealMedia(question, reveal) {
     const explicit = (reveal && reveal.media) || (question && question.media) || {};
     if (explicit.mode === 'video' && explicit.embedUrl) {
@@ -411,15 +402,12 @@
         alt: explicit.alt || 'Related video'
       };
     }
-    if (explicit.mode === 'image') {
-      const url = explicit.imageUrl || screenshotUrl(explicit.sourceUrl || '');
-      if (url) {
-        return {
-          mode: 'image',
-          imageUrl: url,
-          alt: explicit.alt || 'Related source image'
-        };
-      }
+    if (explicit.mode === 'image' && explicit.imageUrl) {
+      return {
+        mode: 'image',
+        imageUrl: explicit.imageUrl,
+        alt: explicit.alt || 'Related source image'
+      };
     }
 
     const sources = (reveal && reveal.sources) || (question && question.sources) || [];
@@ -432,15 +420,6 @@
         embedUrl: youtubeEmbedUrl(videoSource.url),
         posterUrl: '',
         alt: videoSource.title || 'Related video'
-      };
-    }
-
-    const imageSource = sources[0];
-    if (imageSource && imageSource.url) {
-      return {
-        mode: 'image',
-        imageUrl: screenshotUrl(imageSource.url),
-        alt: imageSource.title || 'Related source image'
       };
     }
 

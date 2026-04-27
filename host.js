@@ -242,19 +242,6 @@
     el.joinedCount.textContent = String(RF.playersArray(players).length);
   }
 
-  function preloadAllMedia() {
-    for (var i = 0; i < RF.TOTAL_QUESTIONS; i++) {
-      var question = RF.getQuestion(i);
-      if (!question) {
-        continue;
-      }
-      var media = RF.resolveRevealMedia(question, {});
-      if (media.mode === 'image' && media.imageUrl) {
-        new Image().src = media.imageUrl;
-      }
-    }
-  }
-
   function renderRevealPanel() {
     const isReveal = session.phase === 'reveal';
     el.hostQuestionHud.classList.toggle('hidden', isReveal);
@@ -388,8 +375,6 @@
     el.revealBtn.addEventListener('click', revealCurrent);
     el.nextBtn.addEventListener('click', nextQuestion);
     el.podiumBtn.addEventListener('click', showPodium);
-
-    preloadAllMedia();
 
     db.ref('players').on('value', function (snap) {
       players = snap.val() || {};
