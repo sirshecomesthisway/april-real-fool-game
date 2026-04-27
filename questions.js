@@ -141,7 +141,7 @@ window.GAME_QUESTIONS = [
   },
   {
     "id": 6,
-    "statement": "In September 2019, Walmart launched InHome Delivery - where drivers enter your home while you're away and stock your fridge. Drivers wear body cameras.",
+    "statement": "In September 2019, Walmart launched InHome Delivery - where drivers enter your home while you're away and stock your fridge.",
     "answer": "REAL",
     "artifact_note": "Walmart launched InHome in 2019 and described a wearable camera system for the delivery process. The service later expanded nationally.",
     "sources": [
@@ -169,7 +169,7 @@ window.GAME_QUESTIONS = [
   },
   {
     "id": 7,
-    "statement": "Walmart's #1 selling pet product by unit volume is Ol' Roy dog food - a Walmart private brand named after Sam Walton's own bird dog.",
+    "statement": "Walmart's #1 selling pet product by unit volume is Ol' Roy dog food - a Walmart private brand named after Sam Walton's own dog.",
     "answer": "REAL",
     "artifact_note": "Ol' Roy was named after Sam Walton's favorite hunting dog and became the biggest-selling dog food brand in the country by volume.",
     "sources": [
@@ -187,7 +187,7 @@ window.GAME_QUESTIONS = [
     "media": {
       "mode": "image",
       "imageUrl": "images/q7.jpg",
-      "alt": "Ol' Roy High Performance dry dog food product photo."
+      "alt": "Sam Walton with his bird dog Ol' Roy."
     }
   },
   {
