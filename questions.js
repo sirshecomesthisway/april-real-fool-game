@@ -29,7 +29,8 @@ window.GAME_QUESTIONS = [
     "media": {
       "mode": "image",
       "imageUrl": "images/q1.jpg",
-      "alt": "Walmart mulch best-sellers page product image."
+      "alt": "Walmart mulch best-sellers page product image.",
+      "objectPosition": "center 30%"
     }
   },
   {
@@ -57,7 +58,8 @@ window.GAME_QUESTIONS = [
     "media": {
       "mode": "image",
       "imageUrl": "images/q2.png",
-      "alt": "Google Patents page for US10521806B2 — Blockchain-based system and method for supply chain control."
+      "alt": "Google Patents page for US10521806B2 — Blockchain-based system and method for supply chain control.",
+      "objectPosition": "top"
     }
   },
   {
@@ -80,7 +82,8 @@ window.GAME_QUESTIONS = [
     "media": {
       "mode": "image",
       "imageUrl": "images/q3.png",
-      "alt": "Google Patents page for US10020004B2 — Listening to the frontend."
+      "alt": "Google Patents page for US10020004B2 — Listening to the frontend.",
+      "objectPosition": "top"
     }
   },
   {
@@ -187,7 +190,8 @@ window.GAME_QUESTIONS = [
     "media": {
       "mode": "image",
       "imageUrl": "images/q7.jpg",
-      "alt": "Sam Walton with his bird dog Ol' Roy."
+      "alt": "Sam Walton with his bird dog Ol' Roy.",
+      "objectPosition": "top"
     }
   },
   {

@@ -406,7 +406,8 @@
       return {
         mode: 'image',
         imageUrl: explicit.imageUrl,
-        alt: explicit.alt || 'Related source image'
+        alt: explicit.alt || 'Related source image',
+        objectPosition: explicit.objectPosition || ''
       };
     }
 
@@ -441,7 +442,7 @@
     if (item.mode === 'image' && item.imageUrl) {
       return '<div class="reveal-media media-image">' +
         '<div class="reveal-media-frame">' +
-          '<img src="' + escapeHtml(item.imageUrl) + '" alt="' + escapeHtml(item.alt || fallbackText || 'Related image') + '" loading="eager" referrerpolicy="no-referrer" onerror="this.parentNode.parentNode.classList.add(&quot;is-broken&quot;); this.remove();">' +
+          '<img src="' + escapeHtml(item.imageUrl) + '" alt="' + escapeHtml(item.alt || fallbackText || 'Related image') + '"' + (item.objectPosition ? ' style="object-position:' + escapeHtml(item.objectPosition) + '"' : '') + ' loading="eager" referrerpolicy="no-referrer" onerror="this.parentNode.parentNode.classList.add(&quot;is-broken&quot;); this.remove();">' +
           '<div class="reveal-media-fallback"><div class="fallback-kicker">Related source</div><div class="fallback-copy">Open the source links below for the original article or patent.</div></div>' +
         '</div>' +
       '</div>';
