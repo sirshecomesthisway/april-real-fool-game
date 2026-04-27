@@ -79,7 +79,9 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 18px 28px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 12px 20px;
   backdrop-filter: blur(10px);
   background: rgba(10, 9, 16, 0.45);
   border-bottom: 1px solid var(--line);
@@ -87,7 +89,13 @@ body {
 
 .header-actions {
   display: flex;
-  gap: 10px;
+  gap: 8px;
+}
+
+.header-actions .ghost-btn {
+  padding: 8px 12px;
+  font-size: 0.8rem;
+  border-radius: 12px;
 }
 
 .brand {
@@ -102,9 +110,9 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 14px;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
   background: linear-gradient(135deg, var(--brand), #ff9f3d);
   color: #1b1428;
   box-shadow: 0 10px 28px rgba(255, 216, 61, 0.22);
@@ -115,7 +123,7 @@ body {
   z-index: 1;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 28px;
+  padding: 22px 16px;
 }
 
 .screen {
@@ -796,6 +804,7 @@ button:disabled {
 
 .host-shell {
   max-width: 1440px;
+  padding: 22px 16px;
 }
 
 .host-grid {
