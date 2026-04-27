@@ -242,20 +242,16 @@
     el.joinedCount.textContent = String(RF.playersArray(players).length);
   }
 
-  function preloadRevealMedia() {
-    const question = currentQuestion();
-    if (!question) {
-      return;
-    }
-    const media = RF.resolveRevealMedia(question, {});
-    if (media.mode === 'image' && media.imageUrl) {
-      new Image().src = media.imageUrl;
-    }
-    if (media.mode === 'video' && media.embedUrl && !document.querySelector('link[rel="preconnect"][href*="youtube.com"]')) {
-      var link = document.createElement('link');
-      link.rel = 'preconnect';
-      link.href = 'https://www.youtube.com';
-      document.head.appendChild(link);
+  function preloadAllMedia() {
+    for (var i = 0; i < RF.TOTAL_QUESTIONS; i++) {
+      var question = RF.getQuestion(i);
+      if (!question) {
+        continue;
+      }
+      var media = RF.resolveRevealMedia(question, {});
+      if (media.mode === 'image' && media.imageUrl) {
+        new Image().src = media.imageUrl;
+      }
     }
   }
 
@@ -352,12 +348,10 @@
       el.hostStage.classList.remove('hidden-phase');
       setBadge('Get ready', 'pill-muted');
       el.hostHint.textContent = 'Question 1 is on screen. Click Start Timer when you are ready.';
-      preloadRevealMedia();
     } else if (session.phase === 'question_live') {
       el.hostStage.classList.remove('hidden-phase');
       setBadge('Live', 'pill-live');
       el.hostHint.textContent = 'Answers are coming in now. After reveal, Next Question will auto-start the next timer.';
-      preloadRevealMedia();
     } else if (session.phase === 'reveal') {
       setBadge('Reveal', 'pill-reveal');
       el.hostHint.textContent = Number(session.questionIndex || 0) >= RF.TOTAL_QUESTIONS - 1 ? 'Final reveal. Podium will open automatically.' : 'Click Next Question when you are ready to continue.';
@@ -394,6 +388,8 @@
     el.revealBtn.addEventListener('click', revealCurrent);
     el.nextBtn.addEventListener('click', nextQuestion);
     el.podiumBtn.addEventListener('click', showPodium);
+
+    preloadAllMedia();
 
     db.ref('players').on('value', function (snap) {
       players = snap.val() || {};
