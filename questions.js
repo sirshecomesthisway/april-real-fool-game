@@ -44,9 +44,9 @@ window.GAME_QUESTIONS = [
         "type": "article"
       },
       {
-        "title": "IBM video: Walmart's food safety solution using IBM Food Trust",
-        "url": "https://mediacenter.ibm.com/media/Walmart%27s%20food%20safety%20solution%20using%20IBM%20Food%20Trust%20built%20on%20the%20IBM%20Blockchain%20Platform/1_zwsrls30",
-        "type": "video"
+        "title": "Google Patents: US10521806B2 Blockchain-based supply chain control",
+        "url": "https://patents.google.com/patent/US10521806B2/en",
+        "type": "patent"
       },
       {
         "title": "Blockchain-based system and method for supply chain control",
@@ -56,8 +56,8 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "imageUrl": "images/q2.svg",
-      "alt": "Blockchain mango tracker patent illustration."
+      "imageUrl": "images/q2.png",
+      "alt": "Google Patents page for US10521806B2 — Blockchain-based system and method for supply chain control."
     }
   },
   {
@@ -79,8 +79,8 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "imageUrl": "images/q3.svg",
-      "alt": "Checkout sound patent illustration."
+      "imageUrl": "images/q3.png",
+      "alt": "Google Patents page for US10020004B2 — Listening to the frontend."
     }
   },
   {
