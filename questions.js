@@ -28,8 +28,8 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "imageUrl": "images/q1.svg",
-      "alt": "Walmart best-selling mulch illustration."
+      "imageUrl": "images/q1.jpg",
+      "alt": "Walmart mulch best-sellers page product image."
     }
   },
   {
@@ -107,8 +107,8 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "imageUrl": "images/q4.svg",
-      "alt": "Project Gigaton illustration."
+      "imageUrl": "images/q4.jpg",
+      "alt": "Aerial view of a forest with Walmart logo — Earth Week and Project Gigaton."
     }
   },
   {
@@ -135,8 +135,8 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "imageUrl": "images/q5.svg",
-      "alt": "Truck driver pay illustration."
+      "imageUrl": "images/q5.jpg",
+      "alt": "Walmart truck driver handing keys to an associate."
     }
   },
   {
@@ -163,8 +163,8 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "imageUrl": "images/q6.svg",
-      "alt": "InHome Delivery illustration."
+      "imageUrl": "images/q6.jpg",
+      "alt": "Walmart InHome associate stocking a customer's fridge."
     }
   },
   {
@@ -186,8 +186,8 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "imageUrl": "images/q7.svg",
-      "alt": "Ol' Roy dog food illustration."
+      "imageUrl": "images/q7.jpg",
+      "alt": "Ol' Roy High Performance dry dog food product photo."
     }
   },
   {
@@ -214,8 +214,8 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "imageUrl": "images/q8.svg",
-      "alt": "Generative AI catalog illustration."
+      "imageUrl": "images/q8.jpg",
+      "alt": "Retail Rewired event — Walmart Global Tech AI announcement."
     }
   },
   {
@@ -242,8 +242,8 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "imageUrl": "images/q9.svg",
-      "alt": "Digital shelf labels illustration."
+      "imageUrl": "images/q9.jpg",
+      "alt": "Digital e-ink shelf labels in a Walmart store aisle."
     }
   },
   {
@@ -265,8 +265,8 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "imageUrl": "images/q10.svg",
-      "alt": "Drone delivery illustration."
+      "imageUrl": "images/q10.jpg",
+      "alt": "DroneUp drone delivering a Walmart package."
     }
   },
   {
