@@ -6,7 +6,7 @@ window.GAME_META = {
 window.GAME_QUESTIONS = [
   {
     "id": 1,
-    "statement": "In Spring, Walmart's best-selling item by unit volume is mulch.",
+    "statement": "Walmart's best-selling item by unit volume every spring is mulch.",
     "answer": "REAL",
     "artifact_note": "Yes, it is a 40lb bag of mulch. Based on Walmart earnings calls and seasonal merchandising coverage.",
     "sources": [
@@ -35,7 +35,7 @@ window.GAME_QUESTIONS = [
   },
   {
     "id": 2,
-    "statement": "Walmart owns a patent for a blockchain-based system to track the journey of a mango from farm to shelf.",
+    "statement": "Walmart patented a blockchain-based system to track the journey of a mango from farm to shelf from 7 days to just 2.2 seconds.",
     "answer": "REAL",
     "artifact_note": "In 2018, Walmart piloted a blockchain system with IBM to trace the journey of a single mango from a Mexican farm to a U.S. store shelf.",
     "sources": [
@@ -144,7 +144,7 @@ window.GAME_QUESTIONS = [
   },
   {
     "id": 6,
-    "statement": "In September 2019, Walmart launched InHome Delivery - where drivers enter your home while you're away and stock your fridge.",
+    "statement": "On September 2019, Walmart launched InHome Delivery, where couriers can enter customers\’ homes and deliver groceries directly to their fridge.",
     "answer": "REAL",
     "artifact_note": "Walmart launched InHome in 2019 and described a wearable camera system for the delivery process. The service later expanded nationally.",
     "sources": [
@@ -223,7 +223,7 @@ window.GAME_QUESTIONS = [
   },
   {
     "id": 9,
-    "statement": "Walmart announced it would replace all in-store price tags with e-ink digital labels across 500 U.S. stores by year-end, calling the program \"Project Spark.\"",
+    "statement": "Walmart announced it will replace all traditional paper price tags with e-ink digital labels across 500 U.S. stores by year-end, calling the program \"Project Spark.\"",
     "answer": "FOOL",
     "artifact_note": "Walmart has been rolling out digital shelf labels, but there is no official shelf-label program called Project Spark and the real rollout language is different.",
     "sources": [
@@ -285,14 +285,24 @@ window.GAME_QUESTIONS = [
       },
       {
         "title": "Walmart 'Who Knew?' ad on YouTube",
-        "url": "https://www.youtube.com/watch?v=dHIYiCLs5WA",
+        "url": "https://www.youtube.com/watch?v=_wu2cir2Sls",
         "type": "video"
+      },
+      {
+        "title": "Wikipedia: Walton Goggins",
+        "url": "https://en.wikipedia.org/wiki/Walton_Goggins",
+        "type": "article"
+      },
+      {
+        "title": "Wikipedia: The White Lotus",
+        "url": "https://en.wikipedia.org/wiki/The_White_Lotus",
+        "type": "article"
       }
     ],
     "media": {
       "mode": "video",
-      "embedUrl": "https://www.youtube.com/embed/dHIYiCLs5WA?rel=0&modestbranding=1",
-      "posterUrl": "https://img.youtube.com/vi/dHIYiCLs5WA/hqdefault.jpg",
+      "embedUrl": "https://www.youtube.com/embed/_wu2cir2Sls?rel=0&modestbranding=1",
+      "posterUrl": "https://img.youtube.com/vi/_wu2cir2Sls/hqdefault.jpg",
       "alt": "Walmart 'Who Knew?' ad featuring Walton Goggins."
     }
   },
