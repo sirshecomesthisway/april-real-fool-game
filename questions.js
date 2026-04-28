@@ -279,16 +279,6 @@ window.GAME_QUESTIONS = [
     "artifact_note": "The 'Who Knew?' campaign launched in 2025 featuring Walton Goggins discovering unexpected Walmart products like barrel saunas and dancing shoes.",
     "sources": [
       {
-        "title": "Ad Age: Walmart 'Who Knew?' campaign video",
-        "url": "https://adage.com/video/20250605-walmart-who-knew/",
-        "type": "article"
-      },
-      {
-        "title": "Walmart 'Who Knew?' ad on YouTube",
-        "url": "https://www.youtube.com/watch?v=_wu2cir2Sls",
-        "type": "video"
-      },
-      {
         "title": "Wikipedia: Walton Goggins",
         "url": "https://en.wikipedia.org/wiki/Walton_Goggins",
         "type": "article"
@@ -301,7 +291,7 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "video",
-      "embedUrl": "https://www.youtube.com/embed/_wu2cir2Sls?rel=0&modestbranding=1",
+      "embedUrl": "https://www.youtube.com/embed/_wu2cir2Sls?si=GiZK6tGucbpUtTH3",
       "posterUrl": "https://img.youtube.com/vi/_wu2cir2Sls/hqdefault.jpg",
       "alt": "Walmart 'Who Knew?' ad featuring Walton Goggins."
     }
