@@ -297,7 +297,8 @@ window.GAME_QUESTIONS = [
     }
   },
   {
-    "id": 12,,
+    "id": 12,
+    "statement": "Sam Walton hula-danced in a grass skirt on Wall Street after losing a bet to David Glass.",
     "answer": "REAL",
     "artifact_note": "This happened in 1984 and was captured on video. It is one of the best-known Sam Walton stories.",
     "sources": [
