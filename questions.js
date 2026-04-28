@@ -274,7 +274,7 @@ window.GAME_QUESTIONS = [
   },
   {
     "id": 11,
-    "statement": "Walmart partnered with White Lotus actor Walton Goggins on a marketing campaign called 'Who Knew?' to showcase items like saunas and dancing shoes, highlighting that Walmart is more than just a grocery store.",
+    "statement": "Walmart partnered with White Lotus actor Walton Goggins on a marketing campaign called \"Who Knew?\" to showcase items like saunas and dancing shoes to highlight Walmart is more than just a grocery store.",
     "answer": "REAL",
     "artifact_note": "The 'Who Knew?' campaign launched in 2025 featuring Walton Goggins discovering unexpected Walmart products like barrel saunas and dancing shoes.",
     "sources": [
@@ -318,6 +318,30 @@ window.GAME_QUESTIONS = [
       "embedUrl": "https://www.youtube.com/embed/B71bRIdQzMc?rel=0&modestbranding=1",
       "posterUrl": "https://img.youtube.com/vi/B71bRIdQzMc/hqdefault.jpg",
       "alt": "Embedded video of Sam Walton hula dancing on Wall Street."
+    }
+  },
+  {
+    "id": 13,
+    "statement": "Walmart patented a wheeled e-commerce cart with a built-in label printer holder and a flat packaging surface on top, so warehouse workers can pick, pack, and ship orders without ever visiting a separate packing station.",
+    "answer": "REAL",
+    "artifact_note": "US Patent Application US 2020/0172138 A1, 'Ecommerce Picking and Packaging Cart,' was filed in November 2019 by Walmart Apollo, LLC. Co-invented by Andrew Tolson and Abe Phillips, the cart includes a frame, shelf rack, printer holder, multiple shipping container supports for various box sizes, and a top shelf providing a flat packaging surface — eliminating detours to a separate packing area.",
+    "sources": [
+      {
+        "title": "Google Patents: US20200172138A1 Ecommerce Picking and Packaging Cart",
+        "url": "https://patents.google.com/patent/US20200172138A1/en",
+        "type": "patent"
+      },
+      {
+        "title": "USPTO Patent Application Publication: US 2020/0172138 A1",
+        "url": "https://appft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=%2Fnetahtml%2FPTO%2Fsrchnum.html&r=1&f=G&l=50&d=PG01&s1=20200172138.PGNR.",
+        "type": "patent"
+      }
+    ],
+    "media": {
+      "mode": "image",
+      "imageUrl": "images/q13.png",
+      "alt": "USPTO patent drawing of the Ecommerce Picking and Packaging Cart showing a wheeled frame with shelf racks, container holders, and a flat top packaging surface.",
+      "objectPosition": "center 60%"
     }
   }
 ];
