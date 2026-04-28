@@ -300,7 +300,7 @@ window.GAME_QUESTIONS = [
     "id": 12,
     "statement": "Sam Walton hula-danced in a grass skirt on Wall Street after losing a bet to David Glass.",
     "answer": "REAL",
-    "artifact_note": "This happened in 1984 and was captured on video. It is one of the best-known Sam Walton stories.",
+    "artifact_note": "In 1984, Sam Walton bet then-COO David Glass that Walmart couldn't hit 8% pre-tax profit. When the company beat the target, Sam honored the wager by donning a grass skirt and Hawaiian lei and hula-dancing down Wall Street accompanied by a band of real hula dancers. The stunt made national news and became one of the most iconic moments in Walmart history. Sam later wrote: 'I thought I would slip down there and sneak it, but when I got there it was a mob scene.' It cemented his reputation as a leader willing to do anything to keep a promise and have fun doing it.",
     "sources": [
       {
         "title": "Sam Walton's Hula on Wall St. - official Walmart YouTube video",
