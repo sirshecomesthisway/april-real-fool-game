@@ -274,7 +274,30 @@ window.GAME_QUESTIONS = [
   },
   {
     "id": 11,
-    "statement": "Sam Walton hula-danced in a grass skirt on Wall Street after losing a bet to David Glass.",
+    "statement": "Walmart partnered with White Lotus actor Walton Goggins on a marketing campaign called 'Who Knew?' to showcase items like saunas and dancing shoes, highlighting that Walmart is more than just a grocery store.",
+    "answer": "REAL",
+    "artifact_note": "The 'Who Knew?' campaign launched in 2025 featuring Walton Goggins discovering unexpected Walmart products like barrel saunas and dancing shoes.",
+    "sources": [
+      {
+        "title": "Ad Age: Walmart 'Who Knew?' campaign video",
+        "url": "https://adage.com/video/20250605-walmart-who-knew/",
+        "type": "article"
+      },
+      {
+        "title": "Walmart 'Who Knew?' ad on YouTube",
+        "url": "https://www.youtube.com/watch?v=dHIYiCLs5WA",
+        "type": "video"
+      }
+    ],
+    "media": {
+      "mode": "video",
+      "embedUrl": "https://www.youtube.com/embed/dHIYiCLs5WA?rel=0&modestbranding=1",
+      "posterUrl": "https://img.youtube.com/vi/dHIYiCLs5WA/hqdefault.jpg",
+      "alt": "Walmart 'Who Knew?' ad featuring Walton Goggins."
+    }
+  },
+  {
+    "id": 12,,
     "answer": "REAL",
     "artifact_note": "This happened in 1984 and was captured on video. It is one of the best-known Sam Walton stories.",
     "sources": [
