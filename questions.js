@@ -322,9 +322,9 @@ window.GAME_QUESTIONS = [
   },
   {
     "id": 13,
-    "statement": "Walmart patented a souped-up shopping cart for e-commerce that has a label printer bolted to the frame, a packing desk on top, and built-in slots for multiple shipping box sizes — basically a one-person mobile warehouse on wheels.",
-    "answer": "REAL",
-    "artifact_note": "100% real — and one of the inventors might be in this room right now. 👀 US Patent Application US 2020/0172138 A1, 'Ecommerce Picking and Packaging Cart,' was co-invented by our very own Abe Phillips along with Andrew Tolson and filed by Walmart Apollo, LLC in November 2019. Pick it, pack it, print the label, ship it — all without ever leaving the cart. Congratulations Abe, you are officially a patented genius! 🎉",
+    "statement": "Chapa patented a souped-up shopping cart for e-commerce that has a label printer bolted to the frame, a packing desk on top, and built-in slots for multiple shipping box sizes — basically a one-person mobile warehouse on wheels.",
+    "answer": "FOOL",
+    "artifact_note": "FOOL! Chapa didn’t patent this — Walmart did. But the cart is 100% real, and one of the inventors might be in this room right now. 👀 US Patent Application US 2020/0172138 A1, 'Ecommerce Picking and Packaging Cart,' was co-invented by our very own Abe Phillips along with Andrew Tolson and filed by Walmart Apollo, LLC in November 2019. Pick it, pack it, print the label, ship it — all without ever leaving the cart. And yes, this cart is still in use in stores today. Congratulations Abe, you are officially a patented genius! 🎉",
     "sources": [
       {
         "title": "Google Patents: US20200172138A1 Ecommerce Picking and Packaging Cart",
