@@ -324,7 +324,8 @@ window.GAME_QUESTIONS = [
     "id": 13,
     "statement": "Chapa patented a souped-up shopping cart for e-commerce that has a label printer bolted to the frame, a packing desk on top, and built-in slots for multiple shipping box sizes — basically a one-person mobile warehouse on wheels.",
     "answer": "FOOL",
-    "artifact_note": "FOOL! Chapa didn’t patent this — Walmart did. But the cart is 100% real, and one of the inventors might be in this room right now. 👀 US Patent Application US 2020/0172138 A1, 'Ecommerce Picking and Packaging Cart,' was co-invented by our very own Abe Phillips along with Andrew Tolson and filed by Walmart Apollo, LLC in November 2019. Pick it, pack it, print the label, ship it — all without ever leaving the cart. And yes, this cart is still in use in stores today. Congratulations Abe, you are officially a patented genius! 🎉",
+    "artifact_note": "FOOL! Chapa didn’t patent this. But the cart is 100% real, and one of the inventors might be in this room right now. 👀 \
+    US Patent Application US 2020/0172138 A1, 'Ecommerce Picking and Packaging Cart,' was co-invented by our very own Abe Phillips along with Andrew Tolson in November 2019. And yes, this cart is still in use in stores today! ",
     "sources": [
       {
         "title": "Google Patents: US20200172138A1 Ecommerce Picking and Packaging Cart",
@@ -341,6 +342,26 @@ window.GAME_QUESTIONS = [
       "mode": "image",
       "imageUrl": "images/q13.png",
       "alt": "USPTO patent drawing of the Ecommerce Picking and Packaging Cart showing a wheeled frame with shelf racks, container holders, and a flat top packaging surface.",
+      "objectPosition": "center 60%"
+    }
+  }
+,
+  {
+    "id": 14,
+    "statement": "The people playing this game right now have collectively been named as inventors on over 90 patent filings recorded on Google Patents.",
+    "answer": "REAL",
+    "artifact_note": "Believe it or not, this team is stacked with inventors! Here’s the breakdown: Yurgis — 79 patent records (yes, seventy-nine!), Doug — 10+, Ling — 3, Abe — 1+ (including a cart that’s still rolling in stores today), Jon — 1, and Ricardo — 1 currently in review. Combined that’s over 90 patents sitting in this room. Give yourselves a round of applause, you absolute legends! 👏",
+    "sources": [
+      {
+        "title": "Google Patents search",
+        "url": "https://patents.google.com/",
+        "type": "patent"
+      }
+    ],
+    "media": {
+      "mode": "image",
+      "imageUrl": "images/q13.png",
+      "alt": "USPTO patent drawing — just one of over 90 patents held by the people in this room.",
       "objectPosition": "center 60%"
     }
   }
