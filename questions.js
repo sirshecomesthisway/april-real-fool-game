@@ -360,9 +360,9 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "imageUrl": "images/q13.png",
-      "alt": "USPTO patent drawing — just one of over 90 patents held by the people in this room.",
-      "objectPosition": "center 60%"
+      "imageUrl": "images/q14.png",
+      "alt": "USPTO patent page for Retail Store Scanning Game and Purchase System showing inventors Yurgis Mauro Bacallao and Douglas Jahe Ryner.",
+      "objectPosition": "center 40%"
     }
   }
 ];
