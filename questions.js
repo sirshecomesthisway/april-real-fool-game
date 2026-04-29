@@ -341,8 +341,8 @@ window.GAME_QUESTIONS = [
     "media": {
       "mode": "image",
       "imageUrl": "images/q13.png",
-      "alt": "USPTO patent drawing of the Ecommerce Picking and Packaging Cart showing a wheeled frame with shelf racks, container holders, and a flat top packaging surface.",
-      "objectPosition": "center 60%"
+      "alt": "USPTO patent page showing inventors Andrew Tolson and Abe Phillips.",
+      "objectPosition": "center 22%"
     }
   }
 ,
