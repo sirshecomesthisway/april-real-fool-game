@@ -12,3 +12,17 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
+
+// Sign in anonymously so security rules can require auth != null.
+// boot() in player.js/host.js waits on window.authReady before touching db.
+window.authReady = new Promise(function (resolve, reject) {
+  firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+      resolve(user);
+    }
+  });
+  firebase.auth().signInAnonymously().catch(function (err) {
+    console.error('[firebase-config] Anonymous sign-in failed:', err);
+    reject(err);
+  });
+});

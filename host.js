@@ -390,5 +390,9 @@
     render();
   }
 
-  boot();
+  // Wait for anonymous auth to complete before any db operations
+  // (security rules now require auth != null).
+  window.authReady.then(boot).catch(function (err) {
+    console.error('[host] Auth failed, cannot start host:', err);
+  });
 })();
