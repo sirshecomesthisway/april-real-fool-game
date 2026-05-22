@@ -1,24 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <!-- April Real / Fool favicon: split circle showing the binary choice -->
-  <!-- Background ring in brand yellow -->
-  <circle cx="16" cy="16" r="15" fill="#ffd83d"/>
-  <!-- Inner circle, clipped diagonally: green "Real" / pink "Fool" -->
-  <defs>
-    <clipPath id="circle-clip">
-      <circle cx="16" cy="16" r="13"/>
-    </clipPath>
-  </defs>
-  <g clip-path="url(#circle-clip)">
-    <!-- Real half (upper-left triangle) -->
-    <polygon points="0,0 32,0 0,32" fill="#2ecf73"/>
-    <!-- Fool half (lower-right triangle) -->
-    <polygon points="32,0 32,32 0,32" fill="#ff4f78"/>
-  </g>
-  <!-- Letters: R on green side, F on pink side -->
-  <text x="9" y="14" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif"
-        font-size="11" font-weight="900" fill="#110f1b"
-        text-anchor="middle" dominant-baseline="middle">R</text>
-  <text x="23" y="21" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif"
-        font-size="11" font-weight="900" fill="#110f1b"
-        text-anchor="middle" dominant-baseline="middle">F</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- April Real / Fool favicon: the brand mark clown emoji -->
+  <!-- Renders using the OS's native color emoji font (Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji) -->
+  <text x="50%" y="50%" font-size="86"
+        text-anchor="middle" dominant-baseline="central"
+        font-family="'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif">🤡</text>
 </svg>
