@@ -1,39 +1,6 @@
 {
   "rules": {
     ".read": "auth != null",
-    ".write": "auth != null",
-
-    "players": {
-      "$pid": {
-        ".validate": "newData.hasChildren(['name']) || data.exists()",
-        "name":     { ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 40" },
-        "score":    { ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 10000" },
-        "joinedAt": { ".validate": "newData.isNumber()" },
-        "$other":   { ".validate": false }
-      }
-    },
-
-    "session": {
-      "questionIndex":    { ".validate": "newData.isNumber() && newData.val() >= -1 && newData.val() <= 100" },
-      "started":          { ".validate": "newData.isBoolean()" },
-      "revealed":         { ".validate": "newData.isBoolean()" },
-      "questionStartAt":  { ".validate": "newData.isNumber()" },
-      "$other":           { ".validate": true }
-    },
-
-    "answers": {
-      "$qIndex": {
-        ".validate": "$qIndex.matches(/^[0-9]+$/)",
-        "$pid": {
-          ".validate": "newData.hasChildren(['answer'])",
-          "answer":      { ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 10" },
-          "playerId":    { ".validate": "newData.isString()" },
-          "submittedAt": { ".validate": "newData.isNumber()" },
-          "$other":      { ".validate": false }
-        }
-      }
-    },
-
-    "$other": { ".validate": false }
+    ".write": "auth != null"
   }
 }
