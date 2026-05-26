@@ -1304,3 +1304,106 @@ button:disabled {
 @media (max-width: 640px) {
   .patent-cta-btn { font-size: 14px; padding: 12px 18px; }
 }
+
+/* ───────────── Credits footer — larger, always visible at screen bottom ───────────── */
+.credits-footer {
+  /* Sits as a sibling of the panel inside .podium-shell, not inside the card */
+  margin-top: 24px;
+  padding: 18px 24px;
+  width: 100%;
+  max-width: 760px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  background: rgba(15, 14, 24, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.credits-line {
+  font-size: 16px;
+  color: var(--text);
+  letter-spacing: 0.2px;
+  line-height: 1.4;
+}
+.credits-line strong {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.credits-subline {
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: -4px;
+}
+.credits-subline strong {
+  color: var(--text);
+}
+
+.credits-stack {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.credit-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+a.credit-badge:hover {
+  background: rgba(255, 216, 61, 0.15);
+  color: #fff;
+  border-color: rgba(255, 216, 61, 0.5);
+  transform: translateY(-1px);
+}
+
+.credit-icon {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.credit-sep {
+  color: rgba(255, 255, 255, 0.28);
+  font-size: 14px;
+}
+
+/* Host view: credits-footer placement — sits below the podium/patent area in hostStage */
+.credits-footer-host {
+  margin: 20px auto 0;
+  max-width: 760px;
+}
+
+@media (max-width: 640px) {
+  .credits-footer { margin-top: 18px; padding: 16px 18px; gap: 10px; border-radius: 14px; }
+  .credits-line { font-size: 14px; }
+  .credits-subline { font-size: 13px; }
+  .credits-stack { font-size: 13px; gap: 6px; }
+  .credit-badge { padding: 5px 11px; }
+  .credit-icon { font-size: 12px; }
+}
+
+/* Ensure .podium-shell properly stacks panel + credits and pushes credits to bottom */
+.podium-shell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0; /* spacing handled by margin-top on credits-footer */
+}

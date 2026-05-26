@@ -30,6 +30,7 @@
     hostRevealSources: document.getElementById('hostRevealSources'),
     hostPodiumPanel: document.getElementById('hostPodiumPanel'),
   hostPatentPanel: document.getElementById('hostPatentPanel'),
+  hostCreditsFooter: document.getElementById('hostCreditsFooter'),
   hostViewPatentBtn: document.getElementById('hostViewPatentBtn'),
   hostBackToPodiumBtn: document.getElementById('hostBackToPodiumBtn'),
     hostPodiumWrap: document.getElementById('hostPodiumWrap')
@@ -266,6 +267,7 @@ let hostViewingPatent = false;
     }
     el.hostPodiumPanel.classList.toggle('hidden', !show || hostViewingPatent);
     el.hostPatentPanel.classList.toggle('hidden', !show || !hostViewingPatent);
+    el.hostCreditsFooter.classList.toggle('hidden', !show);
     el.hostRevealScrim.classList.toggle('hidden', !show);
     if (show) {
       el.hostStage.classList.add('hidden-phase');
