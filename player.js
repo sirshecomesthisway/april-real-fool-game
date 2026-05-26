@@ -4,6 +4,9 @@
     screenLobby: document.getElementById('screenLobby'),
     screenQuestion: document.getElementById('screenQuestion'),
     screenPodium: document.getElementById('screenPodium'),
+  screenPatent: document.getElementById('screenPatent'),
+  viewPatentBtn: document.getElementById('viewPatentBtn'),
+  backToPodiumBtn: document.getElementById('backToPodiumBtn'),
     nameInput: document.getElementById('nameInput'),
     joinBtn: document.getElementById('joinBtn'),
     joinError: document.getElementById('joinError'),
@@ -45,11 +48,12 @@
   let answerRef = null;
   let timerFrame = null;
   let activeTimerEndsAt = null;
+let viewingPatent = false;
   let lastTickSecond = null;
   let lastPhaseSignature = '';
 
   function showScreen(target) {
-    [el.screenJoin, el.screenLobby, el.screenQuestion, el.screenPodium].forEach(function (screen) {
+    [el.screenJoin, el.screenLobby, el.screenQuestion, el.screenPodium, el.screenPatent].forEach(function (screen) {
       if (!screen) {
         return;
       }
@@ -301,10 +305,12 @@
       return;
     }
     if (session.phase === 'lobby') {
+      viewingPatent = false;
       showScreen(el.screenLobby);
     } else if (session.phase === 'podium') {
-      showScreen(el.screenPodium);
+      showScreen(viewingPatent ? el.screenPatent : el.screenPodium);
     } else {
+      viewingPatent = false;
       showScreen(el.screenQuestion);
     }
   }
@@ -312,6 +318,20 @@
   function boot() {
     el.nameInput.value = playerName;
     el.joinBtn.addEventListener('click', joinLobby);
+    if (el.viewPatentBtn) {
+      el.viewPatentBtn.addEventListener('click', function () {
+        viewingPatent = true;
+        showScreen(el.screenPatent);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+    if (el.backToPodiumBtn) {
+      el.backToPodiumBtn.addEventListener('click', function () {
+        viewingPatent = false;
+        showScreen(el.screenPodium);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
     el.nameInput.addEventListener('keydown', function (event) {
       if (event.key === 'Enter') {
         joinLobby();

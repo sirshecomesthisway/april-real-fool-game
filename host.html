@@ -8,7 +8,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <meta name="theme-color" content="#ffd83d">
-  <link rel="stylesheet" href="style.css?v=3">
+  <link rel="stylesheet" href="style.css?v=4">
 </head>
 <body class="theme-host">
   <div class="bg bg-1"></div>
@@ -75,6 +75,11 @@
           <div class="eyebrow">Final results</div>
           <h2>Podium</h2>
           <div id="hostPodiumWrap"></div>
+          <div class="podium-cta">
+            <button id="hostViewPatentBtn" class="primary-btn patent-cta-btn" type="button">
+              💡 Got an invention idea? Learn how to patent it →
+            </button>
+          </div>
         </div>
 
         <aside id="hostPatentPanel" class="panel patent-panel center-panel hidden" aria-label="Patent disclosure guidance">
@@ -113,6 +118,10 @@
               </div>
             </li>
           </ol>
+
+          <div class="patent-back-wrap">
+            <button id="hostBackToPodiumBtn" class="ghost-btn" type="button">← Back to Podium</button>
+          </div>
         </aside>
       </div>
 
@@ -148,6 +157,6 @@
   <script src="firebase-config.js"></script>
   <script src="questions.js?v=2"></script>
   <script src="common.js?v=2"></script>
-  <script src="host.js?v=3"></script>
+  <script src="host.js?v=4"></script>
 </body>
 </html>

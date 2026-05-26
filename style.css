@@ -1266,3 +1266,41 @@ button:disabled {
     min-height: calc(100dvh - 122px);
   }
 }
+
+/* CTA button on podium panel that navigates to patent page */
+.podium-cta {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.patent-cta-btn {
+  background: linear-gradient(135deg, var(--brand), #f3a900);
+  color: #1a1310;
+  border: none;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 14px 22px;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 8px 22px rgba(255, 216, 61, 0.28);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.patent-cta-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 26px rgba(255, 216, 61, 0.4);
+}
+.patent-cta-btn:active {
+  transform: translateY(0);
+}
+
+/* Back-to-podium button wrap on the patent screen */
+.patent-back-wrap {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 640px) {
+  .patent-cta-btn { font-size: 14px; padding: 12px 18px; }
+}

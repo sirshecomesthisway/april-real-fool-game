@@ -30,6 +30,8 @@
     hostRevealSources: document.getElementById('hostRevealSources'),
     hostPodiumPanel: document.getElementById('hostPodiumPanel'),
   hostPatentPanel: document.getElementById('hostPatentPanel'),
+  hostViewPatentBtn: document.getElementById('hostViewPatentBtn'),
+  hostBackToPodiumBtn: document.getElementById('hostBackToPodiumBtn'),
     hostPodiumWrap: document.getElementById('hostPodiumWrap')
   };
 
@@ -41,6 +43,7 @@
   let activeTimerEndsAt = null;
   let revealTimeout = null;
   let podiumTimeout = null;
+let hostViewingPatent = false;
   let lastTickSecond = null;
   let lastPhaseSignature = '';
 
@@ -258,8 +261,11 @@
 
   function renderPodiumPanel() {
     const show = session.phase === 'podium';
-    el.hostPodiumPanel.classList.toggle('hidden', !show);
-    el.hostPatentPanel.classList.toggle('hidden', !show);
+    if (!show) {
+      hostViewingPatent = false;
+    }
+    el.hostPodiumPanel.classList.toggle('hidden', !show || hostViewingPatent);
+    el.hostPatentPanel.classList.toggle('hidden', !show || !hostViewingPatent);
     el.hostRevealScrim.classList.toggle('hidden', !show);
     if (show) {
       el.hostStage.classList.add('hidden-phase');
@@ -373,6 +379,20 @@
     el.revealBtn.addEventListener('click', revealCurrent);
     el.nextBtn.addEventListener('click', nextQuestion);
     el.podiumBtn.addEventListener('click', showPodium);
+  if (el.hostViewPatentBtn) {
+    el.hostViewPatentBtn.addEventListener('click', function () {
+      hostViewingPatent = true;
+      renderPodiumPanel();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+  if (el.hostBackToPodiumBtn) {
+    el.hostBackToPodiumBtn.addEventListener('click', function () {
+      hostViewingPatent = false;
+      renderPodiumPanel();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 
     db.ref('players').on('value', function (snap) {
       players = snap.val() || {};
