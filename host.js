@@ -29,6 +29,7 @@
     hostRevealNote: document.getElementById('hostRevealNote'),
     hostRevealSources: document.getElementById('hostRevealSources'),
     hostPodiumPanel: document.getElementById('hostPodiumPanel'),
+  hostPatentPanel: document.getElementById('hostPatentPanel'),
     hostPodiumWrap: document.getElementById('hostPodiumWrap')
   };
 
@@ -258,6 +259,7 @@
   function renderPodiumPanel() {
     const show = session.phase === 'podium';
     el.hostPodiumPanel.classList.toggle('hidden', !show);
+    el.hostPatentPanel.classList.toggle('hidden', !show);
     el.hostRevealScrim.classList.toggle('hidden', !show);
     if (show) {
       el.hostStage.classList.add('hidden-phase');
