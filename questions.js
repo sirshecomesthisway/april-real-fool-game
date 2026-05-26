@@ -348,9 +348,9 @@ window.GAME_QUESTIONS = [
 ,
   {
     "id": 14,
-    "statement": "The people playing this game right now have collectively been named as inventors on over 90 patent filings recorded on Google Patents.",
+    "statement": "The people playing this game right now have collectively been named as inventors on over 80 patent filings recorded on Google Patents.",
     "answer": "REAL",
-    "artifact_note": "Believe it or not, this team is stacked with inventors! Here’s the breakdown: Yurgis — 79 patent records (yes, seventy-nine!), Doug — 10+, Ling — 3, Abe — 1+ (including a cart that’s still rolling in stores today), Jon — 1, and Ricardo — 1 currently in review. Combined that’s over 90 patents sitting in this room. Give yourselves a round of applause, you absolute legends! 👏",
+    "artifact_note": "Believe it or not, this team is stacked with inventors! Here’s the breakdown: Yurgis — 79 patent records (yes, seventy-nine!), Ling — 3, Abe — 1+ (including a cart that’s still rolling in stores today), Jon — 1, and Ricardo — 1 currently in review. Combined that’s over 90 patents sitting in this room. Give yourselves a round of applause, you absolute legends! 👏",
     "sources": [
       {
         "title": "Google Patents search",
