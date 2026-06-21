@@ -28,7 +28,7 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "imageUrl": "images/q1.jpg",
+      "imageUrl": "themes/april-fools/images/q1.jpg",
       "alt": "Walmart mulch best-sellers page product image.",
       "objectPosition": "center 30%"
     }
@@ -57,7 +57,7 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "imageUrl": "images/q2.png",
+      "imageUrl": "themes/april-fools/images/q2.png",
       "alt": "Google Patents page for US10521806B2 — Blockchain-based system and method for supply chain control.",
       "objectPosition": "top"
     }
@@ -81,7 +81,7 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "imageUrl": "images/q3.png",
+      "imageUrl": "themes/april-fools/images/q3.png",
       "alt": "Google Patents page for US10020004B2 — Listening to the frontend.",
       "objectPosition": "top"
     }
@@ -110,7 +110,7 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "imageUrl": "images/q4.jpg",
+      "imageUrl": "themes/april-fools/images/q4.jpg",
       "alt": "Aerial view of a forest with Walmart logo — Earth Week and Project Gigaton."
     }
   },
@@ -138,7 +138,7 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "imageUrl": "images/q5.jpg",
+      "imageUrl": "themes/april-fools/images/q5.jpg",
       "alt": "Walmart truck driver handing keys to an associate."
     }
   },
@@ -166,7 +166,7 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "imageUrl": "images/q6.jpg",
+      "imageUrl": "themes/april-fools/images/q6.jpg",
       "alt": "Walmart InHome associate stocking a customer's fridge."
     }
   },
@@ -189,7 +189,7 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "imageUrl": "images/q7.jpg?v=3",
+      "imageUrl": "themes/april-fools/images/q7.jpg?v=3",
       "alt": "Sam Walton with his bird dog Ol' Roy."
     }
   },
@@ -217,7 +217,7 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "imageUrl": "images/q8.jpg",
+      "imageUrl": "themes/april-fools/images/q8.jpg",
       "alt": "Retail Rewired event — Walmart Global Tech AI announcement."
     }
   },
@@ -245,7 +245,7 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "imageUrl": "images/q9.jpg",
+      "imageUrl": "themes/april-fools/images/q9.jpg",
       "alt": "Digital e-ink shelf labels in a Walmart store aisle."
     }
   },
@@ -268,7 +268,7 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "imageUrl": "images/q10.jpg",
+      "imageUrl": "themes/april-fools/images/q10.jpg",
       "alt": "DroneUp drone delivering a Walmart package."
     }
   },
@@ -340,7 +340,7 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "imageUrl": "images/q13.png",
+      "imageUrl": "themes/april-fools/images/q13.png",
       "alt": "USPTO patent page showing inventors Andrew Tolson and Abe Phillips.",
       "objectPosition": "center 22%"
     }
@@ -360,7 +360,7 @@ window.GAME_QUESTIONS = [
     ],
     "media": {
       "mode": "image",
-      "imageUrl": "images/q14.png",
+      "imageUrl": "themes/april-fools/images/q14.png",
       "alt": "USPTO patent page for Retail Store Scanning Game and Purchase System showing inventors Yurgis Mauro Bacallao and Douglas Jahe Ryner.",
       "objectPosition": "center 40%"
     }
